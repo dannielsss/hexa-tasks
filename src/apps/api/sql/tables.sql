@@ -11,11 +11,20 @@ CREATE TABLE task (
 );
 
 
-CREATE TABLE task_label (
+CREATE TABLE label (
   id VARCHAR(255) PRIMARY KEY NOT NULL UNIQUE
   , name VARCHAR(50) NOT NULL
   , task_id VARCHAR(255) NOT NULL
   , CONSTRAINT fk_task FOREIGN KEY(task_id) REFERENCES task(id)
+);
+
+CREATE TABLE task_label (
+  id VARCHAR(255) PRIMARY KEY NOT NULL UNIQUE,
+  task_id VARCHAR(255) NOT NULL,
+  label_id VARCHAR(255) NOT NULL,
+
+  CONSTRAINT fk_task FOREIGN KEY(task_id) REFERENCES task(id),
+  CONSTRAINT fk_label FOREIGN KEY(label_id) REFERENCES label(id)
 );
 
 -- Insert the default data
@@ -35,8 +44,3 @@ INSERT INTO
 VALUES
   ('Completed');
 
-
-INSERT INTO
-  task (id, name, status)
-VALUES
-  ('idultrasecreta', 'example task', 'Not started');

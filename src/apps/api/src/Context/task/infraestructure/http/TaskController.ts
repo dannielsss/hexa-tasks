@@ -61,7 +61,7 @@ export default class TaskController {
 
     try {
       await TaskValdiator.parseAsync({ name, deadline });
-      await taskService.createTask(name, deadline);
+      await taskService.create(name, deadline);
 
       res
         .status(200)
@@ -88,7 +88,7 @@ export default class TaskController {
       const task = await taskService.findById(taskId);
       if (!task) throw new HttpError(404, 'Task not found');
 
-      await taskService.deleteTask(task.id);
+      await taskService.delete(task.id);
 
       res.status(200).json({ message: 'Task deleted', status: true, data: null });
     } catch (error) {
@@ -111,7 +111,7 @@ export default class TaskController {
       if (!task) throw new HttpError(404, 'Task not found');
 
       await TaskValdiator.parseAsync({ name, deadline });
-      await taskService.editTask(task.id, name, deadline);
+      await taskService.edit(task.id, name, deadline);
 
       res.status(200).json({ message: 'Task edited', status: true, data: null });
     } catch (error) {

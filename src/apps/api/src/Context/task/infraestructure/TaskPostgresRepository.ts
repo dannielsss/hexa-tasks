@@ -18,7 +18,7 @@ export default class TaskPostgresRepository implements TaskRepository {
     return result.rows[0];
   }
 
-  async createTask(name: string, deadline: string): Promise<void> {
+  async create(name: string, deadline: string): Promise<void> {
     await database.query('INSERT INTO task(id, name, deadline, status) VALUES ($1, $2, $3, $4)', [
       idGenerator(),
       name,
@@ -27,7 +27,7 @@ export default class TaskPostgresRepository implements TaskRepository {
     ]);
   }
 
-  async editTask(id: string, name: string, deadline: string): Promise<void> {
+  async edit(id: string, name: string, deadline: string): Promise<void> {
     await database.query('UPDATE task SET name = $1, deadline = $2 WHERE id = $3', [
       name,
       deadline,
@@ -35,7 +35,7 @@ export default class TaskPostgresRepository implements TaskRepository {
     ]);
   }
 
-  async deleteTask(id: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     await database.query('DELETE FROM task WHERE id = $1', [id]);
   }
 }

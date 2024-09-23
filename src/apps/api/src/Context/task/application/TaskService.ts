@@ -16,15 +16,15 @@ export default class TaskService {
     return this.taskRepository.findById(taskId);
   }
 
-  async createTask(name: string, deadline: string): Promise<void> {
-    return this.taskRepository.createTask(name, deadline);
+  async create(name: string, deadline: string): Promise<void> {
+    return this.taskRepository.create(name, deadline);
   }
 
-  async editTask(id: string, name: string, deadline: string): Promise<void> {
-    return this.taskRepository.editTask(id, name, deadline);
+  async edit(id: string, name: string, deadline: string): Promise<void> {
+    return this.taskRepository.edit(id, name, deadline);
   }
 
-  async deleteTask(id: string): Promise<void> {
-    return this.taskRepository.deleteTask(id);
+  async delete(id: string): Promise<void> {
+    return this.taskRepository.delete(id);
   }
 }
