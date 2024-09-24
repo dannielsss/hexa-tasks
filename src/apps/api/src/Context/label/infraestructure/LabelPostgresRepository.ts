@@ -10,7 +10,7 @@ export default class LabelPostgresRepository implements LabelRepository {
   }
 
   async create(name: string, color: string): Promise<void> {
-    await database.query('INSERT INTO label(id, name) VALUES ($1, $2, $3)', [
+    await database.query('INSERT INTO label(id, name, color) VALUES ($1, $2, $3)', [
       idGenerator(),
       name,
       color

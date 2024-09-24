@@ -8,6 +8,7 @@ import Task, { TaskValdiator } from '../../domain/TaskModel';
 
 import TaskPostgresRepository from '../TaskPostgresRepository';
 import HttpError from '../../../../errors/HttpError';
+import manageHttpError from '../../../../utils/manage-http-error';
 
 const taskRepository = new TaskPostgresRepository();
 const taskService = new TaskService(taskRepository);
@@ -25,13 +26,7 @@ export default class TaskController {
         .status(200)
         .json({ message: 'Find all tasks', status: true, data: tasks });
     } catch (error) {
-      if (error instanceof HttpError) {
-        return res
-          .status(error.statusCode)
-          .json({ message: error.message, status: false, data: null });
-      }
-
-      console.error('An unexpected error ocurred: ', error);
+      manageHttpError(error, res);
     }
   }
 
@@ -45,13 +40,7 @@ export default class TaskController {
         .status(200)
         .json({ message: 'Find one task', status: true, data: task });
     } catch (error) {
-      if (error instanceof HttpError) {
-        return res
-          .status(error.statusCode)
-          .json({ message: error.message, status: false, data: null });
-      }
-
-      console.error('An unexpected error ocurred: ', error);
+      manageHttpError(error, res);
     }
   }
 
@@ -67,18 +56,7 @@ export default class TaskController {
         .status(200)
         .json({ message: 'Task created', status: true, data: null });
     } catch (error) {
-      if (error instanceof HttpError) {
-        return res
-          .status(error.statusCode)
-          .json({ message: error.message, status: false, data: null });
-      }
-
-      if (error instanceof ZodError) {
-        const errors: string[] = error.issues.map((issue) => issue.message + ' in (' + issue.path[0] + ') field.');
-        return res.status(400).json({ message: errors, status: false, data: null });
-      }
-
-      console.error('An unexpected error ocurred: ', error)
+      manageHttpError(error, res);
     }
   }
 
@@ -92,13 +70,7 @@ export default class TaskController {
 
       res.status(200).json({ message: 'Task deleted', status: true, data: null });
     } catch (error) {
-      if (error instanceof HttpError) {
-        return res
-          .status(error.statusCode)
-          .json({ message: error.message, status: false, data: null });
-      }
-
-      console.error('An unexpected error ocurred: ', error);
+      manageHttpError(error, res);
     }
   }
 
@@ -115,18 +87,7 @@ export default class TaskController {
 
       res.status(200).json({ message: 'Task edited', status: true, data: null });
     } catch (error) {
-      if (error instanceof HttpError) {
-        return res
-          .status(error.statusCode)
-          .json({ message: error.message, status: false, data: null });
-      }
-
-      if (error instanceof ZodError) {
-        const errors: string[] = error.issues.map((issue) => issue.message + ' in (' + issue.path[0] + ') field.');
-        return res.status(400).json({ message: errors, status: false, data: null });
-      }
-
-      console.error('An unexpected error ocurred: ', error);
+      manageHttpError(error, res);
     }
   }
 }
