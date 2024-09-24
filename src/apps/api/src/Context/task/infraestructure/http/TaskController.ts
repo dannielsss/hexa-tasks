@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { ZodError } from 'zod';
 
 import IWebResponse from '../../../../interfaces/web-response';
 import TaskService from '../../application/TaskService';

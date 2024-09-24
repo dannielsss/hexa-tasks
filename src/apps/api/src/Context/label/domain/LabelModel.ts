@@ -18,3 +18,8 @@ export const LabelValidator = z.object({
   name: z.string().min(1),
   color: z.string().refine(colorValidator),
 })
+
+export const LabelAndTaskIdValidator = z.object({
+  labelId: z.string().uuid(),
+  taskId: z.string().uuid()
+})

@@ -16,4 +16,12 @@ export default class LabelPostgresRepository implements LabelRepository {
       color
     ]);
   }
+
+  async assignLabelToTask(labelId: string, taskId: string): Promise<void> {
+    await database.query('INSERT INTO task_label(id, label_id, task_id) VALUES ($1, $2, $3)', [
+      idGenerator(),
+      labelId,
+      taskId
+    ])
+  }
 }

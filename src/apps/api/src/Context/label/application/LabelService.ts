@@ -15,5 +15,9 @@ export default class LabelService {
   async create(name: string, color: string): Promise<void> {
     await this.labelRepository.create(name, color);
   }
+
+  async assignLabelToTask(labelId: string, taskId: string): Promise<void> {
+    await this.labelRepository.assignLabelToTask(labelId, taskId);
+  }
 }
 

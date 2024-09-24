@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import LabelService from "../../application/LabelService";
 import LabelPostgresRepository from "../LabelPostgresRepository";
 import IWebResponse from "../../../../interfaces/web-response";
-import Label, { LabelValidator } from "../../domain/LabelModel";
+import Label, { LabelAndTaskIdValidator, LabelValidator } from "../../domain/LabelModel";
 import manageHttpError from "../../../../utils/manage-http-error";
 
 const labelRepository = new LabelPostgresRepository();
@@ -11,6 +11,11 @@ const labelService = new LabelService(labelRepository);
 interface BodyData {
   name: string;
   color: string;
+}
+
+interface AssignLabelBodyData {
+  labelId: string;
+  taskId: string;
 }
 
 export default class LabelController {
@@ -31,6 +36,19 @@ export default class LabelController {
       await labelService.create(name, color);
 
       res.status(200).json({ message: 'Create label', status: true, data: null });
+    } catch (error) {
+      manageHttpError(error, res);
+    }
+  }
+
+  async assignLabelToTask(req: Request, res: Response<IWebResponse<null>>) {
+    const { labelId, taskId }: AssignLabelBodyData = req.body;
+
+    try {
+      await LabelAndTaskIdValidator.parseAsync({ labelId, taskId });
+      await labelService.assignLabelToTask(labelId, taskId);
+
+      res.status(200).json({ message: 'Assign label to task', status: true, data: null })
     } catch (error) {
       manageHttpError(error, res);
     }
