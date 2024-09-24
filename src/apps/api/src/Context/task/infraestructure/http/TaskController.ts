@@ -55,7 +55,7 @@ export default class TaskController {
     }
   }
 
-  async createTask(req: Request, res: Response<IWebResponse<null>>) {
+  async create(req: Request, res: Response<IWebResponse<null>>) {
     // NOTE: The deadline require this format: YYYY-MM-DD
     const { name, deadline }: BodyData = req.body;
 
@@ -75,14 +75,14 @@ export default class TaskController {
 
       if (error instanceof ZodError) {
         const errors: string[] = error.issues.map((issue) => issue.message + ' in (' + issue.path[0] + ') field.');
-        return res.status(400).json({ message: errors, status: true, data: null });
+        return res.status(400).json({ message: errors, status: false, data: null });
       }
 
       console.error('An unexpected error ocurred: ', error)
     }
   }
 
-  async deleteTask(req: Request, res: Response<IWebResponse<null>>) {
+  async delete(req: Request, res: Response<IWebResponse<null>>) {
     try {
       const { taskId } = req.params;
       const task = await taskService.findById(taskId);
@@ -102,7 +102,7 @@ export default class TaskController {
     }
   }
 
-  async editTask(req: Request, res: Response<IWebResponse<null>>) {
+  async edit(req: Request, res: Response<IWebResponse<null>>) {
     const { taskId } = req.params;
     const { name, deadline }: BodyData = req.body;
 
@@ -123,7 +123,7 @@ export default class TaskController {
 
       if (error instanceof ZodError) {
         const errors: string[] = error.issues.map((issue) => issue.message + ' in (' + issue.path[0] + ') field.');
-        return res.status(400).json({ message: errors, status: true, data: null });
+        return res.status(400).json({ message: errors, status: false, data: null });
       }
 
       console.error('An unexpected error ocurred: ', error);

@@ -12,8 +12,8 @@ export default class LabelService {
     return await this.labelRepository.findAll()
   }
 
-  async create(name: string): Promise<void> {
-    await this.labelRepository.create(name);
+  async create(name: string, color: string): Promise<void> {
+    await this.labelRepository.create(name, color);
   }
 }
 

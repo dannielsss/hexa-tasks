@@ -1,6 +1,6 @@
-import LabelModel from "./LabelModel";
+import Label from "./LabelModel";
 
 export default interface LabelRepository {
-  findAll(): Promise<LabelModel[]>;
-  create(name: string): Promise<void>;
+  findAll(): Promise<Label[]>;
+  create(name: string, color: string): Promise<void>;
 }
