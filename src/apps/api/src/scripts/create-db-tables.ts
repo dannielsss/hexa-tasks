@@ -4,7 +4,7 @@ import path from 'path';
 import { database } from '../database/postgres';
 
 export async function createDbTables() {
-  const tableNames = ['label', 'task', 'task_label', 'task_status'];
+  const tableNames = ['label', 'task', 'task_label', 'status', 'priority'];
   const searchTablesQuery = `
   SELECT tablename
     FROM pg_tables

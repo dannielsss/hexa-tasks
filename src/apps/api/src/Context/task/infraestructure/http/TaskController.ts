@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import IWebResponse from '../../../../interfaces/web-response';
 import TaskService from '../../application/TaskService';
 
-import Task, { TaskValdiator } from '../../domain/TaskModel';
+import Task, { Priorities, TaskValdiator } from '../../domain/TaskModel';
 
 import TaskPostgresRepository from '../TaskPostgresRepository';
 import HttpError from '../../../../errors/HttpError';
@@ -15,6 +15,7 @@ const taskService = new TaskService(taskRepository);
 interface BodyData {
   name: string;
   deadline: string;
+  priority: Priorities;
 }
 
 export default class TaskController {
@@ -45,11 +46,11 @@ export default class TaskController {
 
   async create(req: Request, res: Response<IWebResponse<null>>) {
     // NOTE: The deadline require this format: YYYY-MM-DD
-    const { name, deadline }: BodyData = req.body;
+    const { name, deadline, priority }: BodyData = req.body;
 
     try {
-      await TaskValdiator.parseAsync({ name, deadline });
-      await taskService.create(name, deadline);
+      await TaskValdiator.parseAsync({ name, deadline, priority });
+      await taskService.create(name, deadline, priority);
 
       res
         .status(200)

@@ -1,13 +1,17 @@
 -- Create the table models
-CREATE TABLE task_status (name VARCHAR(50) PRIMARY KEY NOT NULL UNIQUE);
+CREATE TABLE status (name VARCHAR(50) PRIMARY KEY NOT NULL UNIQUE);
+CREATE TABLE priority (name VARCHAR(50) PRIMARY KEY NOT NULL UNIQUE);
 
 CREATE TABLE task (
-  id VARCHAR(255) PRIMARY KEY NOT NULL UNIQUE
-  , name VARCHAR(100) NOT NULL
-  , deadline TIMESTAMP
-  , created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-  , status VARCHAR(50) NOT NULL
-  , CONSTRAINT fk_status FOREIGN KEY(status) REFERENCES task_status(name)
+  id VARCHAR(255) PRIMARY KEY NOT NULL UNIQUE,
+  name VARCHAR(100) NOT NULL,
+  deadline TIMESTAMP NOT NULL,
+  status VARCHAR(50) NOT NULL, 
+  priority VARCHAR(50) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  CONSTRAINT fk_status FOREIGN KEY(status) REFERENCES status(name),
+  CONSTRAINT fk_priority FOREIGN KEY(priority) REFERENCES priority(name)
 );
 
 
@@ -26,20 +30,14 @@ CREATE TABLE task_label (
   CONSTRAINT fk_label FOREIGN KEY(label_id) REFERENCES label(id)
 );
 
--- Insert the default data
+-- Insert the default data in "status"
+INSERT INTO status(name) VALUES ('Not started');
+INSERT INTO status(name) VALUES ('In progress');
+INSERT INTO status(name) VALUES ('Completed');
 
-INSERT INTO
-  task_status (name)
-VALUES
-  ('Not started');
 
-INSERT INTO
-  task_status (name)
-VALUES
-  ('In progress');
-
-INSERT INTO
-  task_status (name)
-VALUES
-  ('Completed');
+-- Insert the default data in "priority"
+INSERT INTO priority(name) VALUES ('High');
+INSERT INTO priority(name) VALUES ('Medium');
+INSERT INTO priority(name) VALUES ('Low');
 
