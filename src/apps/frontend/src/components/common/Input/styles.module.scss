@@ -1,0 +1,29 @@
+$border-radius: 10px;
+$input-padding: 0.7rem;
+
+.input_container {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  label {
+    display: flex;
+    align-items: center;
+
+    position: absolute;
+    padding: $input-padding;
+  }
+}
+
+.input {
+  width: 100%;
+  padding: $input-padding $input-padding $input-padding $input-padding + 1.8rem;
+  font-size: 1.1em;
+
+  border-radius: $border-radius;
+  border: none;
+  outline: none;
+
+  background: #f4f4f4;
+  color: #333333;
+}

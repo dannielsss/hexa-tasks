@@ -1,0 +1,28 @@
+.filter {
+  padding: 0.5rem 0.7rem;
+  border-radius: 5px;
+  
+  text-decoration: none;
+  color: #333333;
+
+  &,
+  p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  span {
+    opacity: 60%;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.filterActive {
+  @extend .filter;
+  background: #E6E6E6;
+}
