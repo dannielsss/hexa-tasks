@@ -1,5 +1,3 @@
-import { z } from 'zod';
-
 export enum TaskPriorities {
   High = 'High',
   Medium = 'Medium',
@@ -12,13 +10,7 @@ export enum TaskStatus {
   Completed = 'Completed',
 }
 
-export const TaskValdiator = z.object({
-  name: z.string().min(4),
-  deadline: z.string().date(),
-  priority: z.nativeEnum(TaskPriorities),
-});
-
-export default interface Task {
+export default interface ITask {
   id: string;
   name: string;
   status: TaskStatus;

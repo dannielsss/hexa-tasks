@@ -9,21 +9,21 @@ export default function FilterView() {
     <div className={styles.view}>
       <div className={styles.filter_section}>
         <FilterElement
-          linkTo="/today"
+          linkTo="?filter=today"
           color="#0FA958"
           name="Today"
           count={10}
           Icon={FaSun}
         />
         <FilterElement
-          linkTo="/tomorrow"
+          linkTo="?filter=tomorrow"
           color="#EEA229"
           name="Tomorrow"
           count={10}
           Icon={FaCloudSun}
         />
         <FilterElement
-          linkTo="/"
+          linkTo="?filter=planned"
           color="#4681EF"
           name="Planned"
           count={10}

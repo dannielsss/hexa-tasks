@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import IWebResponse from '../../../../interfaces/web-response';
 import TaskService from '../../application/TaskService';
 
-import Task, { Priorities, TaskValdiator } from '../../domain/TaskModel';
+import Task, { TaskPriorities, TaskValdiator } from '../../domain/TaskModel';
 
 import TaskPostgresRepository from '../TaskPostgresRepository';
 import HttpError from '../../../../errors/HttpError';
@@ -15,7 +15,7 @@ const taskService = new TaskService(taskRepository);
 interface BodyData {
   name: string;
   deadline: string;
-  priority: Priorities;
+  priority: TaskPriorities;
 }
 
 export default class TaskController {
@@ -68,7 +68,9 @@ export default class TaskController {
 
       await taskService.delete(task.id);
 
-      res.status(200).json({ message: 'Task deleted', status: true, data: null });
+      res
+        .status(200)
+        .json({ message: 'Task deleted', status: true, data: null });
     } catch (error) {
       manageHttpError(error, res);
     }
@@ -85,7 +87,9 @@ export default class TaskController {
       await TaskValdiator.parseAsync({ name, deadline });
       await taskService.edit(task.id, name, deadline);
 
-      res.status(200).json({ message: 'Task edited', status: true, data: null });
+      res
+        .status(200)
+        .json({ message: 'Task edited', status: true, data: null });
     } catch (error) {
       manageHttpError(error, res);
     }

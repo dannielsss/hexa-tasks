@@ -1,0 +1,20 @@
+.task {
+  background: #f4f4f4;
+  font-size: 0.9em;
+
+  padding: 0.9rem;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  span {
+    color: #a90f71;
+  }
+}
+
+.taskCompleted {
+  @extend .task;
+  text-decoration: line-through;
+}
