@@ -21,7 +21,7 @@ export async function loaderRoot({
 
 export default function Root() {
   const { filter_tasks } = useLoaderData() as LoaderData;
-  const [tasks, setTasks] = useState<ITask[]>([]);
+  const [tasks, setTasks] = useState<ITask[] | null>(null);
 
   const onGetTasks = async () => {
     const responseTasks = await getTasks();
@@ -34,7 +34,9 @@ export default function Root() {
 
   return (
     <>
-      <p>10 {filter_tasks} task(s)</p>
+      <p>
+        {tasks ? tasks.length : '...'} {filter_tasks} task(s)
+      </p>
       {tasks && <TaskList tasks={tasks} />}
 
       <p style={{ marginBottom: '3rem' }}>Click here to show completed tasks</p>

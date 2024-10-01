@@ -1,13 +1,28 @@
 import { FaCalendar, FaCloudSun, FaSun } from 'react-icons/fa';
-import { BiSolidLabel } from 'react-icons/bi';
+import { useEffect, useState } from 'react';
+
+import { getLabels } from '../../../api/ApiLabels';
+
+import FilterElement from '../FilterElement';
+import Label from '../../../types/Label';
+import LabelList from '../LabelList';
 
 import styles from './styles.module.scss';
-import FilterElement from '../FilterElement';
 
 export default function FilterView() {
+  const [labels, setLabels] = useState<Label[]>([]);
+  const onGetLabels = async () => {
+    const labelsData = await getLabels();
+    setLabels(labelsData);
+  };
+
+  useEffect(() => {
+    onGetLabels();
+  }, []);
+
   return (
     <div className={styles.view}>
-      <div className={styles.filter_section}>
+      <div>
         <FilterElement
           linkTo="?filter=today"
           color="#0FA958"
@@ -31,22 +46,7 @@ export default function FilterView() {
         />
       </div>
       <hr />
-      <div className={styles.filter_section}>
-        <FilterElement
-          linkTo="/school"
-          color="#A90F71"
-          name="School"
-          count={10}
-          Icon={BiSolidLabel}
-        />
-        <FilterElement
-          linkTo="/study"
-          color="#A90F12"
-          name="Study"
-          count={10}
-          Icon={BiSolidLabel}
-        />
-      </div>
+      <LabelList labels={labels} />
     </div>
   );
 }
