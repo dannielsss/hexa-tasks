@@ -1,6 +1,7 @@
 import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
+import { useContext } from 'react';
 
-import { useTasks } from '../hooks/useTasks';
+import AppContext from '../contexts/AppProvider/AppContext';
 import TaskList from '../components/tasks/TaskList';
 import AppLayout from '../components/common/AppLayout';
 
@@ -20,14 +21,15 @@ export async function loaderRoot({
 
 export default function Root() {
   const { filter_tasks } = useLoaderData() as LoaderData;
-  const { tasks } = useTasks();
+  const { tasks } = useContext(AppContext);
 
   return (
     <AppLayout>
       <p>
-        {tasks ? tasks.length : '...'} {filter_tasks} task(s)
+        {/* Use .length isn't recomend */}
+        {tasks.length > 0 ? tasks.length : '...'} {filter_tasks} task(s)
       </p>
-      {tasks && <TaskList tasks={tasks} />}
+      {tasks.length > 0 && <TaskList tasks={tasks} />}
 
       <p style={{ marginBottom: '3rem' }}>Click here to show completed tasks</p>
     </AppLayout>

@@ -4,6 +4,7 @@ import { StrictMode } from 'react';
 import './styles.scss';
 
 import Root, { loaderRoot } from './pages/Root.tsx';
+import AppProvider from './contexts/AppProvider/index.tsx';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AppProvider>
+      <RouterProvider router={router} />
+    </AppProvider>
   </StrictMode>
 );
