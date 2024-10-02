@@ -10,7 +10,7 @@ interface Props {
   isCompleted?: boolean;
 }
 
-export default function Task({ name, label, isCompleted }: Props) {
+export default function TaskComponent({ name, label, isCompleted }: Props) {
   const labelConfig = formatLabel(label);
 
   const SquareCheck = () => {

@@ -10,7 +10,7 @@ export enum TaskStatus {
   Completed = 'Completed',
 }
 
-export default interface ITask {
+export default interface Task {
   id: string;
   name: string;
   status: TaskStatus;

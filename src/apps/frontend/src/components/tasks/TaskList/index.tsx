@@ -1,16 +1,16 @@
-import ITask, { TaskStatus } from '../../../types/Task';
+import Task, { TaskStatus } from '../../../types/Task';
 import styles from './styles.module.scss';
-import Task from '../Task';
+import TaskComponent from '../Task';
 
 interface Props {
-  tasks: ITask[];
+  tasks: Task[];
 }
 
 export default function TaskList({ tasks }: Props) {
   return (
     <div className={styles.tasks}>
       {tasks.map((task) => (
-        <Task
+        <TaskComponent
           name={task.name}
           label={task.labels}
           key={task.id}

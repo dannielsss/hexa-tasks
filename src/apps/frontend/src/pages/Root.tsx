@@ -1,9 +1,7 @@
 import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
-import { getTasks } from '../api/ApiTasks';
-import { useEffect, useState } from 'react';
 
+import { useTasks } from '../hooks/useTasks';
 import TaskList from '../components/tasks/TaskList';
-import ITask from '../types/Task';
 
 interface LoaderData {
   filter_tasks: string;
@@ -21,16 +19,7 @@ export async function loaderRoot({
 
 export default function Root() {
   const { filter_tasks } = useLoaderData() as LoaderData;
-  const [tasks, setTasks] = useState<ITask[] | null>(null);
-
-  const onGetTasks = async () => {
-    const responseTasks = await getTasks();
-    setTasks(responseTasks);
-  };
-
-  useEffect(() => {
-    onGetTasks();
-  }, []);
+  const { tasks } = useTasks();
 
   return (
     <>
