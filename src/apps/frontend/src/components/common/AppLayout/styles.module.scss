@@ -1,12 +1,9 @@
 .app_container {
   height: 100dvh;
-  padding: 20px;
 }
 
 .container {
   display: flex;
-  gap: 2rem;
-
   height: 100%;
 }
 
@@ -15,6 +12,8 @@
   flex-direction: column;
   gap: 2rem;
   flex: 1;
+
+  padding: 2rem;
 
   main {
     display: flex;

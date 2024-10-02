@@ -2,6 +2,7 @@ import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 
 import { useTasks } from '../hooks/useTasks';
 import TaskList from '../components/tasks/TaskList';
+import AppLayout from '../components/common/AppLayout';
 
 interface LoaderData {
   filter_tasks: string;
@@ -22,13 +23,13 @@ export default function Root() {
   const { tasks } = useTasks();
 
   return (
-    <>
+    <AppLayout>
       <p>
         {tasks ? tasks.length : '...'} {filter_tasks} task(s)
       </p>
       {tasks && <TaskList tasks={tasks} />}
 
       <p style={{ marginBottom: '3rem' }}>Click here to show completed tasks</p>
-    </>
+    </AppLayout>
   );
 }
