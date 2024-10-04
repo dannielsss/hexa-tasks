@@ -1,16 +1,22 @@
 import { FaSquareCheck } from 'react-icons/fa6';
 import { FaRegSquare } from 'react-icons/fa';
+import { useContext } from 'react';
 
 import { formatLabel } from '../../../utils/format-label';
+import { removeTask } from '../../../api/ApiTasks';
+
+import AppContext from '../../../contexts/AppProvider/AppContext';
 import styles from './styles.module.scss';
 
 interface Props {
+  id: string;
   name: string;
   label: string;
   isCompleted?: boolean;
 }
 
-export default function TaskComponent({ name, label, isCompleted }: Props) {
+export default function TaskComponent({ id, name, label, isCompleted }: Props) {
+  const { reloadTasks } = useContext(AppContext);
   const labelConfig = formatLabel(label);
 
   const SquareCheck = () => {
@@ -21,6 +27,11 @@ export default function TaskComponent({ name, label, isCompleted }: Props) {
     );
   };
 
+  const onRemoveTask = async () => {
+    await removeTask(id);
+    await reloadTasks();
+  };
+
   return (
     <div className={isCompleted ? styles.taskCompleted : styles.task}>
       <SquareCheck />
@@ -28,6 +39,7 @@ export default function TaskComponent({ name, label, isCompleted }: Props) {
         {name}{' '}
         <span style={{ color: labelConfig?.color }}>{labelConfig?.name}</span>
       </p>
+      <button onClick={onRemoveTask}>remove task</button>
     </div>
   );
 }

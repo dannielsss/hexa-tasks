@@ -1,5 +1,5 @@
-import LabelRepository from "../domain/LabelRepository";
-import LabelModel from "../domain/LabelModel";
+import LabelRepository from '../domain/LabelRepository';
+import LabelModel from '../domain/LabelModel';
 
 export default class LabelService {
   private labelRepository: LabelRepository;
@@ -9,7 +9,7 @@ export default class LabelService {
   }
 
   async findAll(): Promise<LabelModel[]> {
-    return await this.labelRepository.findAll()
+    return await this.labelRepository.findAll();
   }
 
   async create(name: string, color: string): Promise<void> {
@@ -19,5 +19,11 @@ export default class LabelService {
   async assignLabelToTask(labelId: string, taskId: string): Promise<void> {
     await this.labelRepository.assignLabelToTask(labelId, taskId);
   }
-}
 
+  async deleteRelationTaskLabel(
+    taskId: string | null,
+    labelId: string | null
+  ): Promise<void> {
+    await this.labelRepository.deleteRelationTaskLabel(taskId, labelId);
+  }
+}

@@ -11,6 +11,7 @@ export default function TaskList({ tasks }: Props) {
     <div className={styles.tasks}>
       {tasks.map((task) => (
         <TaskComponent
+          id={task.id}
           name={task.name}
           label={task.labels}
           key={task.id}

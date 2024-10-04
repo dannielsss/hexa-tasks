@@ -7,3 +7,9 @@ export const getTasks = async (): Promise<Task[]> => {
 
   return tasks;
 };
+
+export const removeTask = async (taskId: string): Promise<void> => {
+  await fetch('http://localhost:5000/api/tasks/' + taskId, {
+    method: 'DELETE',
+  });
+};

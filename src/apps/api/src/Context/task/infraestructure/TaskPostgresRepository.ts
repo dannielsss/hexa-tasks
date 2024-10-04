@@ -3,6 +3,8 @@ import Task, { TaskPriorities, TaskStatus } from '../domain/TaskModel';
 
 import { database } from '../../../database/postgres';
 import idGenerator from '../../../utils/id-generator';
+import LabelService from '../../label/application/LabelService';
+import LabelPostgresRepository from '../../label/infraestructure/LabelPostgresRepository';
 
 export default class TaskPostgresRepository implements TaskRepository {
   async findAll(): Promise<Task[]> {
@@ -42,6 +44,10 @@ export default class TaskPostgresRepository implements TaskRepository {
   }
 
   async delete(id: string): Promise<void> {
+    const labelRepository = new LabelPostgresRepository();
+    const labelService = new LabelService(labelRepository);
+
+    await labelService.deleteRelationTaskLabel(id, null);
     await database.query('DELETE FROM task WHERE id = $1', [id]);
   }
 }

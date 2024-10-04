@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getTasks } from '../api/ApiTasks';
 import Task from '../types/Task';
 
-export const useTasks = () => {
+export const useTasks = (isWhenOpenApp?: boolean) => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   const onGetTasks = async () => {
@@ -11,8 +11,8 @@ export const useTasks = () => {
   };
 
   useEffect(() => {
-    onGetTasks();
+    if (isWhenOpenApp) onGetTasks();
   }, []);
 
-  return { tasks };
+  return { tasks, onGetTasks };
 };
