@@ -27,7 +27,7 @@ export default function Root() {
     <AppLayout>
       <p>
         {/* Use .length isn't recomend */}
-        {tasks.length > 0 ? tasks.length : '...'} {filter_tasks} task(s)
+        {tasks.length > 0 ? tasks.length : '0'} {filter_tasks} task(s)
       </p>
       {tasks.length > 0 && <TaskList tasks={tasks} />}
 
