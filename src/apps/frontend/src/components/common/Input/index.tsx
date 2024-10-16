@@ -1,17 +1,26 @@
 import { FaPlus } from 'react-icons/fa';
 import styles from './styles.module.scss';
+import { FormEvent, RefObject } from 'react';
 
-export default function Input() {
+interface Props {
+  onHandleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>;
+  refInput?: RefObject<HTMLInputElement>;
+}
+
+export default function Input({ onHandleSubmit, refInput }: Props) {
   return (
-    <div className={styles.input_container}>
+    <form className={styles.input_container} onSubmit={onHandleSubmit}>
       <label htmlFor="custom-input">
         <FaPlus />
       </label>
       <input
+        type="text"
         className={styles.input}
         placeholder="Add a task, press [Enter] to save"
         id="custom-input"
+        name="task_name"
+        ref={refInput}
       />
-    </div>
+    </form>
   );
 }
