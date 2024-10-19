@@ -1,10 +1,12 @@
 import RequestError from '../errors/RequestError';
+import Label from '../types/Label';
 import Task, { TaskPriorities } from '../types/Task';
 
 interface SendBodyInterface {
   name: string;
   deadline: string;
   priority: TaskPriorities;
+  label: Label | null;
 }
 
 export const getTasks = async (): Promise<Task[]> => {
@@ -19,10 +21,16 @@ export const createTask = async ({
   name,
   deadline,
   priority,
+  label,
 }: SendBodyInterface): Promise<void> => {
   const request = await fetch('http://localhost:5000/api/tasks', {
     method: 'POST',
-    body: JSON.stringify({ name, deadline, priority }),
+    body: JSON.stringify({
+      name,
+      deadline,
+      priority,
+      labelId: label && label.id,
+    }),
     headers: {
       'Content-Type': 'application/json',
     },

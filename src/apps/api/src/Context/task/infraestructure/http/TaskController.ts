@@ -8,6 +8,8 @@ import Task, { TaskPriorities, TaskValdiator } from '../../domain/TaskModel';
 import TaskPostgresRepository from '../TaskPostgresRepository';
 import HttpError from '../../../../errors/HttpError';
 import manageHttpError from '../../../../utils/manage-http-error';
+import LabelPostgresRepository from '../../../label/infraestructure/LabelPostgresRepository';
+import LabelService from '../../../label/application/LabelService';
 
 const taskRepository = new TaskPostgresRepository();
 const taskService = new TaskService(taskRepository);
@@ -15,6 +17,7 @@ const taskService = new TaskService(taskRepository);
 interface BodyData {
   name: string;
   deadline: string;
+  labelId?: string;
   priority: TaskPriorities;
 }
 
@@ -46,11 +49,20 @@ export default class TaskController {
 
   async create(req: Request, res: Response<IWebResponse<null>>) {
     // NOTE: The deadline require this format: YYYY-MM-DD
-    const { name, deadline, priority }: BodyData = req.body;
+    const { name, deadline, priority, labelId }: BodyData = req.body;
 
     try {
+      const labelRepository = new LabelPostgresRepository();
+      const labelService = new LabelService(labelRepository);
+
       await TaskValdiator.parseAsync({ name, deadline, priority });
-      await taskService.create(name, deadline, priority);
+      const task = await taskService.create(name, deadline, priority);
+
+      if (labelId) {
+        console.log(labelId);
+
+        labelService.assignLabelToTask(labelId, task.id);
+      }
 
       res
         .status(200)

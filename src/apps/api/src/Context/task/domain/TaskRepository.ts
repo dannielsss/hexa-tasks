@@ -7,7 +7,7 @@ export default interface TaskRepository {
     name: string,
     deadline: string,
     priority: TaskPriorities
-  ): Promise<void>;
+  ): Promise<Task>;
   delete(id: string): Promise<void>;
   edit(id: string, name: string, deadline: string): Promise<void>;
 }

@@ -20,7 +20,7 @@ export default class TaskService {
     name: string,
     deadline: string,
     priority: TaskPriorities
-  ): Promise<void> {
+  ): Promise<Task> {
     return this.taskRepository.create(name, deadline, priority);
   }
 

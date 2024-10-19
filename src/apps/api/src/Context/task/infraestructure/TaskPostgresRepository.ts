@@ -29,11 +29,13 @@ export default class TaskPostgresRepository implements TaskRepository {
     name: string,
     deadline: string,
     priority: TaskPriorities
-  ): Promise<void> {
-    await database.query(
-      'INSERT INTO task(id, name, deadline, priority, status) VALUES ($1, $2, $3, $4, $5)',
+  ): Promise<Task> {
+    const result = await database.query(
+      'INSERT INTO task(id, name, deadline, priority, status) VALUES ($1, $2, $3, $4, $5) RETURNING *',
       [idGenerator(), name, deadline, priority, TaskStatus.NotStarted]
     );
+
+    return result.rows[0];
   }
 
   async edit(id: string, name: string, deadline: string): Promise<void> {

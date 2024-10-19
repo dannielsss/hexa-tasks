@@ -1,24 +1,14 @@
 import { FaCalendar, FaCloudSun, FaSun } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
 
-import { getLabels } from '../../../api/ApiLabels';
-
+import AppContext from '../../../contexts/AppProvider/AppContext';
 import FilterElement from '../FilterElement';
-import Label from '../../../types/Label';
 import LabelList from '../LabelList';
 
 import styles from './styles.module.scss';
+import { useContext } from 'react';
 
 export default function FilterView() {
-  const [labels, setLabels] = useState<Label[]>([]);
-  const onGetLabels = async () => {
-    const labelsData = await getLabels();
-    setLabels(labelsData);
-  };
-
-  useEffect(() => {
-    onGetLabels();
-  }, []);
+  const { labels } = useContext(AppContext);
 
   return (
     <div className={styles.view}>

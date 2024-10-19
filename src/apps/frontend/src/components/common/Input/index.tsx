@@ -10,7 +10,7 @@ interface Props {
 export default function Input({ onHandleSubmit, refInput }: Props) {
   return (
     <form className={styles.input_container} onSubmit={onHandleSubmit}>
-      <label htmlFor="custom-input">
+      <label htmlFor="custom-input" className={styles.input_label}>
         <FaPlus />
       </label>
       <input
