@@ -5,6 +5,7 @@ export const formatLabel = (label?: string): Label | null => {
   const formattedLabel = label.split(',')[0].split('-');
 
   return {
+    id: '',
     name: '#' + formattedLabel[0],
     color: formattedLabel[1],
   };

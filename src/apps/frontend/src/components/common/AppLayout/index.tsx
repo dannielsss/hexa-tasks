@@ -20,13 +20,16 @@ import Input from '../Input';
 import SelectMenu from '../SelectMenu';
 import { MenuElements } from '../../../types/SelectMenu';
 import Label from '../../../types/Label';
+import DatePicker from 'react-tailwindcss-datepicker';
+import moment from 'moment';
 
 export default function AppLayout({ children }: PropsWithChildren) {
   const { reloadTasks, labels } = useContext(AppContext);
+
+  const [dayValue, setDayValue] = useState({ startDate: '', endDate: '' });
   const [prioritySelected, setPrioritySelected] = useState<MenuElements>(
     PRIORITIES[0]
   );
-
   const [labelSelected, setLabelSelected] = useState<Label>(
     labels[0] ? labels[0] : { id: '0', color: 'gray', name: 'No label' }
   );
@@ -42,7 +45,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
     try {
       await createTask({
         name: data.get('task_name') as string,
-        deadline: '2024-10-16',
+        deadline: moment(dayValue.startDate).format('YYYY-MM-DD'),
         priority: prioritySelected.name as TaskPriorities,
         label: labelSelected.id === '0' ? null : labelSelected,
       });
@@ -78,6 +81,15 @@ export default function AppLayout({ children }: PropsWithChildren) {
                   }
                 />
               ) : null}
+              <DatePicker
+                primaryColor="blue"
+                inputClassName="h-full text-base pl-2 outline-none w-40 rounded-md"
+                value={dayValue as any}
+                onChange={(newValue) => setDayValue(newValue as any)}
+                useRange={false}
+                asSingle
+                containerClassName="relative h-full"
+              />
             </div>
           </header>
           <main>{children}</main>
