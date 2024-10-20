@@ -1,5 +1,3 @@
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/16/solid';
-import { BsCircleFill } from 'react-icons/bs';
 import { Dispatch, SetStateAction } from 'react';
 import {
   Listbox,
@@ -8,8 +6,11 @@ import {
   ListboxOptions,
 } from '@headlessui/react';
 
-import { MenuElements } from '../../../types/SelectMenu';
-import Label from '../../../types/Label';
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/16/solid';
+import { BsCircleFill } from 'react-icons/bs';
+
+import { MenuElements } from '../../types/SelectMenu';
+import Label from '../../types/Label';
 
 interface Props {
   menuElements: MenuElements[] | Label[];
