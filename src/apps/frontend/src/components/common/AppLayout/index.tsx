@@ -1,4 +1,5 @@
-import DatePicker from 'react-tailwindcss-datepicker';
+import { DayPicker, getDefaultClassNames } from 'react-day-picker';
+import { BiCalendar } from 'react-icons/bi';
 import moment from 'moment';
 import {
   Dispatch,
@@ -6,6 +7,7 @@ import {
   PropsWithChildren,
   SetStateAction,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -27,7 +29,9 @@ import Input from '../Input';
 export default function AppLayout({ children }: PropsWithChildren) {
   const { reloadTasks, labels } = useContext(AppContext);
 
-  const [dayValue, setDayValue] = useState({ startDate: '', endDate: '' });
+  const [isCloseCalendar, setIsCloseCalendar] = useState<boolean>(true);
+  const [selectedDay, setSelectedDay] = useState<Date>();
+
   const [prioritySelected, setPrioritySelected] = useState<MenuElements>(
     PRIORITIES[0]
   );
@@ -46,7 +50,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
     try {
       await createTask({
         name: data.get('task_name') as string,
-        deadline: moment(dayValue.startDate).format('YYYY-MM-DD'),
+        deadline: moment(selectedDay).format('YYYY-MM-DD'),
         priority: prioritySelected.name as TaskPriorities,
         label: labelSelected.id === '0' ? null : labelSelected,
       });
@@ -59,6 +63,23 @@ export default function AppLayout({ children }: PropsWithChildren) {
       }
     }
   };
+
+  const defaultClassNames = getDefaultClassNames();
+  const dayPickerContainerRef = useRef<HTMLDivElement | null>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (!dayPickerContainerRef.current) return;
+    if (dayPickerContainerRef.current.contains(event.target as Node)) return;
+
+    setIsCloseCalendar(true);
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className={styles.app_container}>
@@ -82,15 +103,43 @@ export default function AppLayout({ children }: PropsWithChildren) {
                   }
                 />
               ) : null}
-              <DatePicker
-                primaryColor="blue"
-                inputClassName="h-full w-full py-1.5 pl-3 pr-10 sm:py-auto sm:pl-auto sm:pr-auto sm:w-auto text-base pl-2 outline-none w-40 rounded-md"
-                value={dayValue as any}
-                onChange={(newValue) => setDayValue(newValue as any)}
-                useRange={false}
-                asSingle
-                containerClassName="relative h-full"
-              />
+              <div
+                className="w-full sm:w-auto relative h-full"
+                ref={dayPickerContainerRef}
+              >
+                <p
+                  onClick={() => setIsCloseCalendar(!isCloseCalendar)}
+                  className="w-full sm:w-44 h-full flex items-center justify-start sm:justify-center gap-2 border-2 bg-white text-sm rounded-md py-1.5 pl-3 pr-10 select-none mb-2"
+                >
+                  <BiCalendar />
+                  {selectedDay
+                    ? moment(selectedDay).format('YYYY/MM/DD')
+                    : 'Pick deadline'}
+                </p>
+                {isCloseCalendar ? null : (
+                  <>
+                    <div className="bg-white w-3 h-10 absolute top-10 right-12"></div>
+                    <div className="bg-white w-3 h-10 absolute top-10 right-4"></div>
+                  </>
+                )}
+                <div className="relative">
+                  <DayPicker
+                    mode="single"
+                    selected={selectedDay}
+                    onSelect={setSelectedDay}
+                    onDayClick={() => setIsCloseCalendar(!isCloseCalendar)}
+                    classNames={{
+                      root: `${
+                        defaultClassNames.root
+                      } absolute right-0 bg-white p-8 rounded-md shadow-lg ${
+                        isCloseCalendar ? 'hidden' : 'block'
+                      }`,
+                      today: `bg-[#4681ef] text-white rounded-md`,
+                      selected: `bg-[#e7e7e7] rounded-md`,
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </header>
           <main>{children}</main>

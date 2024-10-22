@@ -11,6 +11,7 @@ import { BsCircleFill } from 'react-icons/bs';
 
 import { MenuElements } from '../../types/SelectMenu';
 import Label from '../../types/Label';
+import { DayPicker } from 'react-day-picker';
 
 interface Props {
   menuElements: MenuElements[] | Label[];
