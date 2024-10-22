@@ -1,3 +1,5 @@
+import DatePicker from 'react-tailwindcss-datepicker';
+import moment from 'moment';
 import {
   Dispatch,
   FormEvent,
@@ -7,21 +9,20 @@ import {
   useRef,
   useState,
 } from 'react';
+
 import styles from './styles.module.scss';
 
+import { MenuElements } from '../../../types/SelectMenu';
 import { TaskPriorities } from '../../../types/Task';
 import { createTask } from '../../../api/ApiTasks';
-
 import { PRIORITIES } from '../../../constants';
+import Label from '../../../types/Label';
+
 import AppContext from '../../../contexts/AppProvider/AppContext';
 import RequestError from '../../../errors/RequestError';
 import FilterView from '../../filters/FilterView';
-import Input from '../Input';
 import SelectMenu from '../SelectMenu';
-import { MenuElements } from '../../../types/SelectMenu';
-import Label from '../../../types/Label';
-import DatePicker from 'react-tailwindcss-datepicker';
-import moment from 'moment';
+import Input from '../Input';
 
 export default function AppLayout({ children }: PropsWithChildren) {
   const { reloadTasks, labels } = useContext(AppContext);
@@ -64,9 +65,9 @@ export default function AppLayout({ children }: PropsWithChildren) {
       <div className={styles.container}>
         <FilterView />
         <div className={styles.content}>
-          <header>
+          <header className="flex flex-col gap-1.5 xl:flex-row">
             <Input onHandleSubmit={onHandleSubmit} refInput={refInput} />
-            <div className={styles.menus}>
+            <div className="flex flex-col sm:flex-row gap-1.5">
               <SelectMenu
                 menuElements={PRIORITIES}
                 selected={prioritySelected}
@@ -83,7 +84,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
               ) : null}
               <DatePicker
                 primaryColor="blue"
-                inputClassName="h-full text-base pl-2 outline-none w-40 rounded-md"
+                inputClassName="h-full w-full py-1.5 pl-3 pr-10 sm:py-auto sm:pl-auto sm:pr-auto sm:w-auto text-base pl-2 outline-none w-40 rounded-md"
                 value={dayValue as any}
                 onChange={(newValue) => setDayValue(newValue as any)}
                 useRange={false}

@@ -15,7 +15,7 @@ export default function Input({ onHandleSubmit, refInput }: Props) {
       </label>
       <input
         type="text"
-        className={styles.input}
+        className={styles.input + ' text-base sm:text-lg'}
         placeholder="Add a task, press [Enter] to save"
         id="custom-input"
         name="task_name"

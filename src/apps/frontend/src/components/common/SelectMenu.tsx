@@ -21,8 +21,8 @@ interface Props {
 function SelectMenu({ menuElements, selected, setSelected }: Props) {
   return (
     <Listbox value={selected} onChange={setSelected}>
-      <div className="relative w-36 h-full">
-        <ListboxButton className="relative w-full h-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm sm:text-sm sm:leading-6">
+      <div className="relative h-full w-full xl:w-36">
+        <ListboxButton className="relative w-full h-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 text-sm leading-6">
           <span className="flex items-center">
             <BsCircleFill color={selected.color} />
             <span className="ml-3 block truncate">{selected.name}</span>

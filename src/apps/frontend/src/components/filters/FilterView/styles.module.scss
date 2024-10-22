@@ -6,7 +6,11 @@
   padding: 1.5rem;
   border-radius: 10px;
 
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 1rem;
+
+  @media (width >= 768px) {
+    display: flex;
+  }
 }
