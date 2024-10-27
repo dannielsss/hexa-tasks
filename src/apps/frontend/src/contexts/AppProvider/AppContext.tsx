@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import Task from '../../types/Task';
-import Label from '../../types/Label';
+import { Label } from '../../types/Label';
 
 interface AppContextType {
   tasks: Task[];

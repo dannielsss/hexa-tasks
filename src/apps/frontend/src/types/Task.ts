@@ -10,6 +10,10 @@ export enum TaskStatus {
   Completed = 'Completed',
 }
 
+export interface InputTaskSchema {
+  name: string;
+}
+
 export default interface Task {
   id: string;
   name: string;

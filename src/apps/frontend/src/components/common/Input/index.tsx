@@ -1,25 +1,26 @@
+import { UseFormRegister } from 'react-hook-form';
+
+import { InputTaskSchema } from '../../../types/Task';
 import { FaPlus } from 'react-icons/fa';
 import styles from './styles.module.scss';
-import { FormEvent, RefObject } from 'react';
 
 interface Props {
-  onHandleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>;
-  refInput?: RefObject<HTMLInputElement>;
+  handleSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
+  register: UseFormRegister<InputTaskSchema>;
 }
 
-export default function Input({ onHandleSubmit, refInput }: Props) {
+export default function Input({ handleSubmit, register }: Props) {
   return (
-    <form className={styles.input_container} onSubmit={onHandleSubmit}>
+    <form className={styles.input_container} onSubmit={handleSubmit}>
       <label htmlFor="custom-input" className={styles.input_label}>
         <FaPlus />
       </label>
       <input
+        {...register('name')}
         type="text"
         className={styles.input + ' text-base sm:text-lg'}
         placeholder="Add a task, press [Enter] to save"
         id="custom-input"
-        name="task_name"
-        ref={refInput}
       />
     </form>
   );

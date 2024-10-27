@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Label from '../types/Label';
+import { Label } from '../types/Label';
 import { getLabels } from '../api/ApiLabels';
 
 export const useLabels = (isWhenOpenApp?: boolean) => {
