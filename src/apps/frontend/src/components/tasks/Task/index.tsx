@@ -1,5 +1,6 @@
-import { FaSquareCheck } from 'react-icons/fa6';
+import { FaCalendar, FaSquareCheck, FaXmark } from 'react-icons/fa6';
 import { FaRegSquare } from 'react-icons/fa';
+import { RiEditCircleFill } from 'react-icons/ri';
 import { useContext } from 'react';
 
 import { formatLabel } from '../../../utils/format-label';
@@ -7,17 +8,22 @@ import { removeTask } from '../../../api/ApiTasks';
 
 import AppContext from '../../../contexts/AppProvider/AppContext';
 import styles from './styles.module.scss';
+import Task from '../../../types/Task';
+import moment from 'moment';
 
-interface Props {
-  id: string;
-  name: string;
-  label: string;
+interface Props extends Task {
   isCompleted?: boolean;
 }
 
-export default function TaskComponent({ id, name, label, isCompleted }: Props) {
+export default function TaskComponent({
+  id,
+  name,
+  labels,
+  isCompleted,
+  deadline,
+}: Props) {
   const { reloadTasks } = useContext(AppContext);
-  const labelConfig = formatLabel(label);
+  const labelConfig = formatLabel(labels);
 
   const SquareCheck = () => {
     return isCompleted ? (
@@ -34,12 +40,28 @@ export default function TaskComponent({ id, name, label, isCompleted }: Props) {
 
   return (
     <div className={isCompleted ? styles.taskCompleted : styles.task}>
-      <SquareCheck />
-      <p>
-        {name}{' '}
-        <span style={{ color: labelConfig?.color }}>{labelConfig?.name}</span>
-      </p>
-      <button onClick={onRemoveTask}>remove task</button>
+      <div>
+        <div className={styles.content}>
+          <SquareCheck />
+          <p>{name} </p>
+        </div>
+        <div className="flex gap-2">
+          <p className="text-sm flex items-center gap-1">
+            <FaCalendar /> {moment(deadline).format('DD MMMM YYYY')}
+          </p>
+          <p style={{ color: labelConfig?.color }}>{labelConfig?.name}</p>
+        </div>
+      </div>
+      <div className="absolute top-3 right-3">
+        <div className="flex gap-2">
+          <button onClick={onRemoveTask} className="text-red-400 ">
+            <FaXmark size={20} />
+          </button>
+          <button className="text-[#333333] opacity-50">
+            <RiEditCircleFill size={20} />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

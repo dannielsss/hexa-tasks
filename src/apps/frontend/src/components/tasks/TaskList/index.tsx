@@ -13,8 +13,12 @@ export default function TaskList({ tasks }: Props) {
         <TaskComponent
           id={task.id}
           name={task.name}
-          label={task.labels}
+          labels={task.labels}
           key={task.id}
+          status={task.status}
+          created_at={task.created_at}
+          deadline={task.deadline}
+          priority={task.priority}
           isCompleted={task.status == TaskStatus.Completed}
         />
       ))}

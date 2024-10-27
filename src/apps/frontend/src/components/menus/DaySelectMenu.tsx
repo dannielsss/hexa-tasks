@@ -30,7 +30,7 @@ function DayPickerInput({ selected, setSelected }: Props) {
 
   return (
     <div
-      className="w-full sm:w-auto relative h-full"
+      className="w-full sm:w-auto relative h-full z-10"
       ref={dayPickerContainerRef}
     >
       <p
