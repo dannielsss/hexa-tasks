@@ -10,6 +10,12 @@ export enum TaskStatus {
   Completed = 'Completed',
 }
 
+export enum DefaultTaskFilters {
+  Planned = 'planned',
+  Tomorrow = 'tomorrow',
+  Today = 'today',
+}
+
 export interface InputTaskSchema {
   name: string;
 }

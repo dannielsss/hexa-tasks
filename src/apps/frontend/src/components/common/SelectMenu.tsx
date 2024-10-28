@@ -10,8 +10,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/16/solid';
 import { BsCircleFill } from 'react-icons/bs';
 
 import { MenuElements } from '../../types/SelectMenu';
-import Label from '../../types/Label';
-import { DayPicker } from 'react-day-picker';
+import { Label } from '../../types/Label';
 
 interface Props {
   menuElements: MenuElements[] | Label[];
@@ -44,6 +43,7 @@ function SelectMenu({ menuElements, selected, setSelected }: Props) {
             <ListboxOption
               value={element}
               className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 data-[focus]:bg-indigo-600 data-[focus]:text-white"
+              key={element.color}
             >
               <div className="flex items-center">
                 <BsCircleFill color={element.color} />

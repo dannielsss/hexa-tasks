@@ -6,7 +6,7 @@ export const formatLabel = (label?: string): Label | null => {
 
   return {
     id: '',
-    name: '#' + formattedLabel[0],
+    name: formattedLabel[0],
     color: formattedLabel[1],
   };
 };

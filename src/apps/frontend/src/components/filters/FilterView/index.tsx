@@ -1,14 +1,15 @@
 import { FaCalendar, FaCloudSun, FaSun } from 'react-icons/fa';
+import { useContext } from 'react';
 
 import AppContext from '../../../contexts/AppProvider/AppContext';
 import FilterElement from '../FilterElement';
 import LabelList from '../LabelList';
 
 import styles from './styles.module.scss';
-import { useContext } from 'react';
 
 export default function FilterView() {
-  const { labels } = useContext(AppContext);
+  const { labels, tasks } = useContext(AppContext);
+  const today = new Date().getDate();
 
   return (
     <div className={styles.view}>
@@ -17,21 +18,28 @@ export default function FilterView() {
           linkTo="?filter=today"
           color="#0FA958"
           name="Today"
-          count={10}
+          count={
+            tasks.filter((task) => new Date(task.deadline).getDate() === today)
+              .length
+          }
           Icon={FaSun}
         />
         <FilterElement
           linkTo="?filter=tomorrow"
           color="#EEA229"
           name="Tomorrow"
-          count={10}
+          count={
+            tasks.filter(
+              (task) => new Date(task.deadline).getDate() === today + 1
+            ).length
+          }
           Icon={FaCloudSun}
         />
         <FilterElement
           linkTo="?filter=planned"
           color="#4681EF"
           name="Planned"
-          count={10}
+          count={tasks.length}
           Icon={FaCalendar}
         />
       </div>
