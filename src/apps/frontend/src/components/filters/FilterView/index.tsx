@@ -3,12 +3,13 @@ import { useContext } from 'react';
 
 import AppContext from '../../../contexts/AppProvider/AppContext';
 import FilterElement from '../FilterElement';
+import Loading from '../../common/Loading';
 import LabelList from '../LabelList';
 
 import styles from './styles.module.scss';
 
 export default function FilterView() {
-  const { labels, tasks } = useContext(AppContext);
+  const { labels, tasks, loading } = useContext(AppContext);
   const today = new Date().getDate();
 
   return (
@@ -44,7 +45,7 @@ export default function FilterView() {
         />
       </div>
       <hr />
-      <LabelList labels={labels} />
+      {loading ? <Loading /> : <LabelList labels={labels} />}
     </div>
   );
 }

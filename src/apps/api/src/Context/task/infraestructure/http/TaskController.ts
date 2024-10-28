@@ -58,11 +58,7 @@ export default class TaskController {
       await TaskValdiator.parseAsync({ name, deadline, priority });
       const task = await taskService.create(name, deadline, priority);
 
-      if (labelId) {
-        console.log(labelId);
-
-        labelService.assignLabelToTask(labelId, task.id);
-      }
+      if (labelId) labelService.assignLabelToTask(labelId, task.id);
 
       res
         .status(200)

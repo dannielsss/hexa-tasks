@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import AppContext from '../contexts/AppProvider/AppContext';
 import { createTask, getTasks } from '../api/ApiTasks';
-import Task, { TaskPriorities } from '../types/Task';
+import { Task, TaskPriorities } from '../types/Task';
 import { Label } from '../types/Label';
 
 interface TaskCreationData {
@@ -11,18 +11,18 @@ interface TaskCreationData {
   label: Label | null;
 }
 
-export const useTasks = (isWhenOpenApp?: boolean) => {
+export const useTasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const { reloadTasks } = useContext(AppContext);
 
   const onGetTasks = async () => {
-    const responseTasks = await getTasks();
-    setTasks(responseTasks);
+    try {
+      const responseTasks = await getTasks();
+      setTasks(responseTasks);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-  useEffect(() => {
-    if (isWhenOpenApp) onGetTasks();
-  }, []);
 
   const onCreateTask = async ({
     name,

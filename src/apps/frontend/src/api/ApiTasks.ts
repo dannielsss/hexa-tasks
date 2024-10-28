@@ -1,6 +1,6 @@
 import RequestError from '../errors/RequestError';
 import { Label } from '../types/Label';
-import Task, { TaskPriorities } from '../types/Task';
+import { TaskPriorities, Task } from '../types/Task';
 
 interface SendBodyInterface {
   name: string;

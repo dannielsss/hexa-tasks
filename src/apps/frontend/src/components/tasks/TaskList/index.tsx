@@ -1,4 +1,4 @@
-import Task, { TaskStatus } from '../../../types/Task';
+import { TaskStatus, Task } from '../../../types/Task';
 import styles from './styles.module.scss';
 import TaskComponent from '../Task';
 

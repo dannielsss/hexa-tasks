@@ -28,15 +28,9 @@ export default function Root() {
 
   return (
     <AppLayout>
-      <p>
-        {/* Use .length isn't recomend */}
-        {filteredTasks.length > 0 ? filteredTasks.length : '0'} {filter_tasks}{' '}
-        task(s)
-      </p>
+      <p>{`${filteredTasks.length} ${filter_tasks} task(s)`}</p>
 
-      {tasks.length > 0 ? <TaskList tasks={filteredTasks} /> : null}
-
-      {/* <p style={{ marginBottom: '3rem' }}>Click here to show completed tasks</p> */}
+      <TaskList tasks={filteredTasks} />
     </AppLayout>
   );
 }

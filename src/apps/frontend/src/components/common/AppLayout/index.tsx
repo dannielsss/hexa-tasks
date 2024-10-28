@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import moment from 'moment';
 
@@ -12,17 +12,21 @@ import PrioritiesSelectMenu from '../../menus/PrioritiesSelectMenu';
 import LabelsSelectMenu from '../../menus/LabelsSelectMenu';
 import DayPickerInput from '../../menus/DaySelectMenu';
 
+import AppContext from '../../../contexts/AppProvider/AppContext';
 import RequestError from '../../../errors/RequestError';
 import FilterView from '../../filters/FilterView';
+import Loading from '../Loading';
 import Input from '../Input';
 
 export default function AppLayout({ children }: PropsWithChildren) {
   const { register, reset, handleSubmit } = useForm<InputTaskSchema>();
+  const { loading, setLoading } = useContext(AppContext);
 
   const { state, setters } = useMenus();
   const { onCreateTask } = useTasks();
 
   const onSubmit = async (data: InputTaskSchema) => {
+    setLoading(true);
     try {
       await onCreateTask({
         name: data.name,
@@ -32,10 +36,12 @@ export default function AppLayout({ children }: PropsWithChildren) {
       });
 
       reset();
+      setLoading(false);
     } catch (error) {
       if (error instanceof RequestError) {
         console.log(error.dataError);
       }
+      setLoading(false);
     }
   };
 
@@ -61,7 +67,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
               />
             </div>
           </header>
-          <main>{children}</main>
+          <main>{loading ? <Loading /> : children}</main>
         </div>
       </div>
     </div>

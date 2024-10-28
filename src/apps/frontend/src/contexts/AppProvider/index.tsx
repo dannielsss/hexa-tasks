@@ -1,21 +1,23 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 
 import { useTasks } from '../../hooks/useTasks';
 import { useLabels } from '../../hooks/useLabels';
 
 import AppContext from './AppContext';
-import Task from '../../types/Task';
 
 export default function AppProvider({ children }: PropsWithChildren) {
-  const { labels, onGetLabels: reloadLabels } = useLabels(true);
-  const { tasks, onGetTasks: reloadTasks } = useTasks(true);
+  const { labels, onGetLabels: reloadLabels } = useLabels();
+  const { tasks, onGetTasks: reloadTasks } = useTasks();
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const getFilteredTasks = (condition: (task: Task) => boolean) =>
-    tasks.filter(condition);
+  useEffect(() => {
+    reloadTasks();
+    reloadLabels();
+  }, []);
 
   return (
     <AppContext.Provider
-      value={{ tasks, reloadTasks, getFilteredTasks, labels, reloadLabels }}
+      value={{ tasks, reloadTasks, labels, reloadLabels, loading, setLoading }}
     >
       {children}
     </AppContext.Provider>

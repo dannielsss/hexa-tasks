@@ -8,7 +8,7 @@ import { removeTask } from '../../../api/ApiTasks';
 
 import AppContext from '../../../contexts/AppProvider/AppContext';
 import styles from './styles.module.scss';
-import Task from '../../../types/Task';
+import { Task } from '../../../types/Task';
 import moment from 'moment';
 
 interface Props extends Task {
@@ -22,7 +22,7 @@ export default function TaskComponent({
   isCompleted,
   deadline,
 }: Props) {
-  const { reloadTasks } = useContext(AppContext);
+  const { reloadTasks, setLoading } = useContext(AppContext);
   const labelConfig = formatLabel(labels);
 
   const SquareCheck = () => {
@@ -34,8 +34,10 @@ export default function TaskComponent({
   };
 
   const onRemoveTask = async () => {
+    setLoading(true);
     await removeTask(id);
     await reloadTasks();
+    setLoading(false);
   };
 
   return (

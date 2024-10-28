@@ -1,6 +1,6 @@
-import { createContext } from 'react';
+import { createContext, Dispatch, SetStateAction } from 'react';
 import { Label } from '../../types/Label';
-import Task from '../../types/Task';
+import { Task } from '../../types/Task';
 
 interface AppContextType {
   tasks: Task[];
@@ -8,6 +8,9 @@ interface AppContextType {
 
   labels: Label[];
   reloadLabels: () => Promise<void>;
+
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 export default createContext<AppContextType>({
@@ -16,4 +19,7 @@ export default createContext<AppContextType>({
 
   labels: [],
   async reloadLabels() {},
+
+  loading: false,
+  setLoading: () => {},
 });

@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Label } from '../types/Label';
 import { getLabels } from '../api/ApiLabels';
 
-export const useLabels = (isWhenOpenApp?: boolean) => {
+export const useLabels = () => {
   const [labels, setLabels] = useState<Label[]>([]);
 
   const onGetLabels = async () => {
-    const labelsData = await getLabels();
-    setLabels(labelsData);
+    try {
+      const labelsData = await getLabels();
+      setLabels(labelsData);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-  useEffect(() => {
-    if (isWhenOpenApp) onGetLabels();
-  }, []);
 
   return { labels, onGetLabels };
 };

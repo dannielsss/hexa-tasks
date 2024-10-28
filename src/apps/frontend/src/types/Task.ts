@@ -20,7 +20,7 @@ export interface InputTaskSchema {
   name: string;
 }
 
-export default interface Task {
+export interface Task {
   id: string;
   name: string;
   status: TaskStatus;
