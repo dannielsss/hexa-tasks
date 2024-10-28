@@ -8,7 +8,7 @@ import { removeTask } from '../../../api/ApiTasks';
 
 import AppContext from '../../../contexts/AppProvider/AppContext';
 import styles from './styles.module.scss';
-import { Task } from '../../../types/Task';
+import { Task, TaskPriorities } from '../../../types/Task';
 import moment from 'moment';
 
 interface Props extends Task {
@@ -19,6 +19,7 @@ export default function TaskComponent({
   id,
   name,
   labels,
+  priority,
   isCompleted,
   deadline,
 }: Props) {
@@ -64,6 +65,19 @@ export default function TaskComponent({
           <button className="text-[#333333] opacity-50">
             <RiEditCircleFill size={20} />
           </button>
+          <div
+            className={`text-[0.7em] ${
+              priority === TaskPriorities.Low
+                ? 'bg-green-600'
+                : priority === TaskPriorities.Medium
+                ? 'bg-orange-600'
+                : TaskPriorities.High
+                ? 'bg-red-600'
+                : null
+            } p-1 rounded-md text-white text-center w-16`}
+          >
+            {priority}
+          </div>
         </div>
       </div>
     </div>
