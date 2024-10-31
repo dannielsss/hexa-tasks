@@ -28,7 +28,9 @@ export default function Root() {
 
   return (
     <AppLayout>
-      <p>{`${filteredTasks.length} ${filter_tasks} task(s)`}</p>
+      <p>
+        {filteredTasks.length} {filter_tasks && filter_tasks} task(s)
+      </p>
 
       <TaskList tasks={filteredTasks} />
     </AppLayout>
