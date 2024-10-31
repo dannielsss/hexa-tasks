@@ -1,4 +1,4 @@
-import Task, { DefaultTaskFilters } from '../types/Task';
+import { DefaultTaskFilters, Task } from '../types/Task';
 import { formatLabel } from './format-label';
 
 export const filterTasksByCriteria = (
