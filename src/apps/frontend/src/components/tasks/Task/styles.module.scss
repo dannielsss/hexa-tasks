@@ -30,5 +30,7 @@
 
 .taskCompleted {
   @extend .task;
-  text-decoration: line-through;
+  .content {
+    text-decoration: line-through;
+  }
 }

@@ -3,7 +3,11 @@ import { Request, Response } from 'express';
 import IWebResponse from '../../../../interfaces/web-response';
 import TaskService from '../../application/TaskService';
 
-import Task, { TaskPriorities, TaskValdiator } from '../../domain/TaskModel';
+import Task, {
+  TaskPriorities,
+  TaskStatus,
+  TaskValdiator,
+} from '../../domain/TaskModel';
 
 import TaskPostgresRepository from '../TaskPostgresRepository';
 import HttpError from '../../../../errors/HttpError';
@@ -98,6 +102,30 @@ export default class TaskController {
       res
         .status(200)
         .json({ message: 'Task edited', status: true, data: null });
+    } catch (error) {
+      manageHttpError(error, res);
+    }
+  }
+
+  async completeTask(req: Request, res: Response<IWebResponse<null>>) {
+    const { taskId } = req.params;
+
+    try {
+      const task = await taskService.findById(taskId);
+      if (!task) throw new HttpError(404, 'Task not found');
+
+      if (task.status === TaskStatus.NotStarted)
+        await taskService.completeTask(task.id, TaskStatus.Completed);
+      else if (task.status === TaskStatus.Completed)
+        await taskService.completeTask(task.id, TaskStatus.NotStarted);
+
+      res
+        .status(200)
+        .json({
+          message: `The task changed its status`,
+          status: true,
+          data: null,
+        });
     } catch (error) {
       manageHttpError(error, res);
     }

@@ -2,11 +2,15 @@ import RequestError from '../errors/RequestError';
 import { Label } from '../types/Label';
 import { TaskPriorities, Task } from '../types/Task';
 
-interface SendBodyInterface {
+interface NewTaskPayload {
   name: string;
   deadline: string;
   priority: TaskPriorities;
   label: Label | null;
+}
+
+interface TaskCompletionPayload {
+  taskId: string;
 }
 
 export const getTasks = async (): Promise<Task[]> => {
@@ -22,7 +26,7 @@ export const createTask = async ({
   deadline,
   priority,
   label,
-}: SendBodyInterface): Promise<void> => {
+}: NewTaskPayload): Promise<void> => {
   const request = await fetch('http://localhost:5000/api/tasks', {
     method: 'POST',
     body: JSON.stringify({
@@ -44,5 +48,11 @@ export const createTask = async ({
 export const removeTask = async (taskId: string): Promise<void> => {
   await fetch('http://localhost:5000/api/tasks/' + taskId, {
     method: 'DELETE',
+  });
+};
+
+export const changeTaskStatus = async ({ taskId }: TaskCompletionPayload) => {
+  await fetch(`http://localhost:5000/api/tasks/${taskId}/complete`, {
+    method: 'PUT',
   });
 };

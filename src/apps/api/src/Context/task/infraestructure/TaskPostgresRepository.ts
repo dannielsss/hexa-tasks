@@ -45,6 +45,13 @@ export default class TaskPostgresRepository implements TaskRepository {
     );
   }
 
+  async completeTask(id: string, status: TaskStatus): Promise<void> {
+    await database.query('UPDATE task SET status = $1 WHERE id = $2', [
+      status,
+      id,
+    ]);
+  }
+
   async delete(id: string): Promise<void> {
     const labelRepository = new LabelPostgresRepository();
     const labelService = new LabelService(labelRepository);

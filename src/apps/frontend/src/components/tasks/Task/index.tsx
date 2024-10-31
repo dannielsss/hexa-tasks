@@ -1,12 +1,12 @@
 import { FaCalendar, FaSquareCheck, FaXmark } from 'react-icons/fa6';
 import { FaRegSquare } from 'react-icons/fa';
 import { RiEditCircleFill } from 'react-icons/ri';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import moment from 'moment';
 
 import { Task, TaskPriorities } from '../../../types/Task';
 import { formatLabel } from '../../../utils/format-label';
-import { removeTask } from '../../../api/ApiTasks';
+import { changeTaskStatus, removeTask } from '../../../api/ApiTasks';
 
 import AppContext from '../../../contexts/AppProvider/AppContext';
 import styles from './styles.module.scss';
@@ -20,17 +20,18 @@ export default function TaskComponent({
   name,
   labels,
   priority,
-  isCompleted,
+  isCompleted: argsIsCompleted,
   deadline,
 }: Props) {
   const { reloadTasks, setLoading } = useContext(AppContext);
+  const [isCompleted, setIsCompleted] = useState(argsIsCompleted);
   const labelConfig = formatLabel(labels);
 
   const SquareCheck = () => {
     return isCompleted ? (
-      <FaSquareCheck size={20} color="#0FA958" />
+      <FaSquareCheck size={20} color="#0FA958" onClick={onCompleteTask} />
     ) : (
-      <FaRegSquare size={20} />
+      <FaRegSquare size={20} onClick={onCompleteTask} />
     );
   };
 
@@ -38,6 +39,16 @@ export default function TaskComponent({
     setLoading(true);
     await removeTask(id);
     await reloadTasks();
+    setLoading(false);
+  };
+
+  const onCompleteTask = async () => {
+    setLoading(true);
+
+    await changeTaskStatus({ taskId: id });
+    await reloadTasks();
+
+    setIsCompleted(!isCompleted);
     setLoading(false);
   };
 

@@ -1,4 +1,4 @@
-import Task, { TaskPriorities } from '../domain/TaskModel';
+import Task, { TaskPriorities, TaskStatus } from '../domain/TaskModel';
 import TaskRepository from '../domain/TaskRepository';
 
 export default class TaskService {
@@ -26,6 +26,10 @@ export default class TaskService {
 
   async edit(id: string, name: string, deadline: string): Promise<void> {
     return this.taskRepository.edit(id, name, deadline);
+  }
+
+  async completeTask(id: string, status: TaskStatus): Promise<void> {
+    return this.taskRepository.completeTask(id, status);
   }
 
   async delete(id: string): Promise<void> {

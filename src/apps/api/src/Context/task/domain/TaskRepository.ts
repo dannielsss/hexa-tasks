@@ -1,4 +1,4 @@
-import Task, { TaskPriorities } from './TaskModel';
+import Task, { TaskPriorities, TaskStatus } from './TaskModel';
 
 export default interface TaskRepository {
   findAll(): Promise<Task[]>;
@@ -10,4 +10,5 @@ export default interface TaskRepository {
   ): Promise<Task>;
   delete(id: string): Promise<void>;
   edit(id: string, name: string, deadline: string): Promise<void>;
+  completeTask(id: string, status: TaskStatus): Promise<void>;
 }

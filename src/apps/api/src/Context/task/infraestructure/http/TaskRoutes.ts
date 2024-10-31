@@ -9,5 +9,6 @@ taskRoutes.get('/:taskId', taskController.findById);
 taskRoutes.post('/', taskController.create);
 taskRoutes.delete('/:taskId', taskController.delete);
 taskRoutes.put('/:taskId', taskController.edit);
+taskRoutes.put('/:taskId/complete', taskController.completeTask);
 
 export default taskRoutes;
