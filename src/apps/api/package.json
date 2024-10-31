@@ -1,11 +1,12 @@
 {
-  "name": "hexa-tasks",
+  "name": "api",
   "version": "1.0.0",
   "description": "<b>HexaTask</b> es un sistema de gestión de tareas que utiliza la arquitectura hexagonal para ofrecer una solución modular y escalable. Permite a los usuarios crear, actualizar, eliminar y visualizar tareas, así como asignar etiquetas, prioridades y fechas límite.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "cross-env NODE_ENV=dev nodemon src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +14,7 @@
   "dependencies": {
     "color-string": "^1.9.1",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "express": "^4.19.2",
     "morgan": "^1.10.0",
     "pg": "^8.12.0",

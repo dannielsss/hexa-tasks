@@ -9,7 +9,7 @@ import { useTasks } from '../../../hooks/useTasks';
 import { useMenus } from '../../../hooks/useMenus';
 
 import PrioritiesSelectMenu from '../../menus/PrioritiesSelectMenu';
-import LabelsSelectMenu from '../../menus/LabelsSelectMenu';
+// import LabelsSelectMenu from '../../menus/LabelsSelectMenu';
 import DayPickerInput from '../../menus/DaySelectMenu';
 
 import AppContext from '../../../contexts/AppProvider/AppContext';
@@ -57,10 +57,10 @@ export default function AppLayout({ children }: PropsWithChildren) {
                 selected={state.prioritySelected}
                 setSelected={setters.setPrioritySelected}
               />
-              <LabelsSelectMenu
+              {/* <LabelsSelectMenu
                 selected={state.labelSelected}
                 setSelected={setters.setLabelSelected}
-              />
+              /> */}
               <DayPickerInput
                 selected={state.selectedDay}
                 setSelected={setters.setSelectedDay}

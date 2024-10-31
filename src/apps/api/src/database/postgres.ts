@@ -12,4 +12,5 @@ export const database = new Pool({
   password: DATABASE_PASSWORD,
   database: DATABASE_NAME,
   port: 5432,
+  ssl: process.env.NODE_ENV === 'dev' && false,
 });

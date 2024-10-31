@@ -8,8 +8,9 @@
   "description": "<b>HexaTask</b> es un sistema de gestión de tareas que utiliza la arquitectura hexagonal del lado del backend usando express para ofrecer una solución modular y escalable para la REST API. Permite a los usuarios crear, actualizar, eliminar y visualizar tareas, así como asignar etiquetas, prioridades y fechas límite.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "turbo run dev"
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "yarn workspace api run start"
   },
   "keywords": [],
   "author": "",

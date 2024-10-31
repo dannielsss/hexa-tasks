@@ -1,3 +1,4 @@
+import { API_URL } from '../constants';
 import RequestError from '../errors/RequestError';
 import { Label } from '../types/Label';
 import { TaskPriorities, Task } from '../types/Task';
@@ -14,7 +15,7 @@ interface TaskCompletionPayload {
 }
 
 export const getTasks = async (): Promise<Task[]> => {
-  const request = await fetch('http://localhost:5000/api/tasks');
+  const request = await fetch(`${API_URL}/tasks`);
   const response = await request.json();
   const tasks = response.data;
 
@@ -27,7 +28,7 @@ export const createTask = async ({
   priority,
   label,
 }: NewTaskPayload): Promise<void> => {
-  const request = await fetch('http://localhost:5000/api/tasks', {
+  const request = await fetch(`${API_URL}/tasks`, {
     method: 'POST',
     body: JSON.stringify({
       name,
@@ -46,13 +47,13 @@ export const createTask = async ({
 };
 
 export const removeTask = async (taskId: string): Promise<void> => {
-  await fetch('http://localhost:5000/api/tasks/' + taskId, {
+  await fetch(`${API_URL}/tasks/` + taskId, {
     method: 'DELETE',
   });
 };
 
 export const changeTaskStatus = async ({ taskId }: TaskCompletionPayload) => {
-  await fetch(`http://localhost:5000/api/tasks/${taskId}/complete`, {
+  await fetch(`${API_URL}/tasks/${taskId}/complete`, {
     method: 'PUT',
   });
 };

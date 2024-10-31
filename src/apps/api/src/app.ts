@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import path from 'path';
 
 import taskRoutes from './Context/task/infraestructure/http/TaskRoutes';
 import labelRoutes from './Context/label/infraestructure/http/LabelRoutes';
@@ -14,5 +15,7 @@ app.use(cors());
 
 app.use('/api/tasks', taskRoutes);
 app.use('/api/labels', labelRoutes);
+
+app.use(express.static(path.join(__dirname, '..', '..', 'frontend', 'dist')));
 
 export default app;

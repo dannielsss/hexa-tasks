@@ -1,6 +1,6 @@
 import { FaCalendar, FaSquareCheck, FaXmark } from 'react-icons/fa6';
 import { FaRegSquare } from 'react-icons/fa';
-import { RiEditCircleFill } from 'react-icons/ri';
+// import { RiEditCircleFill } from 'react-icons/ri';
 import { useContext, useState } from 'react';
 import moment from 'moment';
 
@@ -73,9 +73,9 @@ export default function TaskComponent({
           <button onClick={onRemoveTask} className="text-red-400 ">
             <FaXmark size={20} />
           </button>
-          <button className="text-[#333333] opacity-50">
+          {/* <button className="text-[#333333] opacity-50">
             <RiEditCircleFill size={20} />
-          </button>
+          </button> */}
           <div
             className={`text-[0.7em] ${
               priority === TaskPriorities.Low
