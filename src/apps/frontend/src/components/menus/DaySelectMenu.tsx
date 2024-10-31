@@ -38,7 +38,7 @@ function DayPickerInput({ selected, setSelected }: Props) {
         className="w-full sm:w-44 h-full flex items-center justify-start sm:justify-center gap-2 border-2 bg-white text-sm rounded-md py-1.5 pl-3 pr-10 select-none mb-2"
       >
         <BiCalendar />
-        {selected ? moment(selected).format('YYYY/MM/DD') : 'Pick deadline'}
+        {selected ? moment(selected).format('DD/MM/YYYY') : 'Pick deadline'}
       </p>
       {isCloseCalendar ? null : (
         <>
@@ -49,7 +49,7 @@ function DayPickerInput({ selected, setSelected }: Props) {
       <div className="relative">
         <DayPicker
           mode="single"
-          selected={selected}
+          selected={moment(selected).toDate()}
           onSelect={setSelected}
           onDayClick={() => setIsCloseCalendar(!isCloseCalendar)}
           classNames={{

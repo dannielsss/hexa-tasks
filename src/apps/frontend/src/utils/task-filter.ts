@@ -1,18 +1,19 @@
+import moment from 'moment';
 import { DefaultTaskFilters, Task } from '../types/Task';
 import { formatLabel } from './format-label';
+
+const today = moment();
+
+export const isDeadlineToday = (task: Task) =>
+  moment(task.deadline).format('DD/MM/YYYY') === today.format('DD/MM/YYYY');
+
+export const isDeadlineTomorrow = (task: Task) =>
+  moment(task.deadline).isAfter(today);
 
 export const filterTasksByCriteria = (
   filter: DefaultTaskFilters | string | null,
   tasks: Task[]
 ): Task[] => {
-  const today = new Date().getDate();
-
-  const isDeadlineToday = (task: Task) =>
-    new Date(task.deadline).getDate() === today;
-
-  const isDeadlineTomorrow = (task: Task) =>
-    new Date(task.deadline).getDate() === today + 1;
-
   const isMatchingLabel = (task: Task) =>
     formatLabel(task.labels)?.name === filter;
 
