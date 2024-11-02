@@ -7,7 +7,6 @@ import { filterTasksByCriteria } from '../utils/task-filter';
 import AppContext from '../contexts/AppProvider/AppContext';
 import AppLayout from '../components/common/AppLayout';
 import TaskList from '../components/tasks/TaskList';
-import moment from 'moment';
 
 interface LoaderData {
   filter_tasks: DefaultTaskFilters | string | null;
