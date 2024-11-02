@@ -7,6 +7,7 @@ import { filterTasksByCriteria } from '../utils/task-filter';
 import AppContext from '../contexts/AppProvider/AppContext';
 import AppLayout from '../components/common/AppLayout';
 import TaskList from '../components/tasks/TaskList';
+import moment from 'moment';
 
 interface LoaderData {
   filter_tasks: DefaultTaskFilters | string | null;
@@ -26,8 +27,11 @@ export default function Root() {
   const { tasks } = useContext(AppContext);
   const filteredTasks = filterTasksByCriteria(filter_tasks, tasks);
 
+  const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+
   return (
     <AppLayout>
+      <p className="text-sm">Time zone: {timeZone}</p>
       <p>
         {filteredTasks.length} {filter_tasks && filter_tasks} task(s)
       </p>
