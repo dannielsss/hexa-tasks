@@ -2,7 +2,7 @@ import { FaCalendar, FaSquareCheck, FaXmark } from 'react-icons/fa6';
 import { FaRegSquare } from 'react-icons/fa';
 // import { RiEditCircleFill } from 'react-icons/ri';
 import { useContext, useState } from 'react';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import { Task, TaskPriorities } from '../../../types/Task';
 import { formatLabel } from '../../../utils/format-label';
@@ -10,6 +10,7 @@ import { changeTaskStatus, removeTask } from '../../../api/ApiTasks';
 
 import AppContext from '../../../contexts/AppProvider/AppContext';
 import styles from './styles.module.scss';
+import { TIME_ZONE } from '../../../constants';
 
 interface Props extends Task {
   isCompleted?: boolean;
@@ -61,7 +62,8 @@ export default function TaskComponent({
         </div>
         <div className="flex gap-2">
           <p className="text-sm flex items-center gap-1">
-            <FaCalendar /> {moment(deadline).format('DD MMMM YYYY')}
+            <FaCalendar />{' '}
+            {moment(deadline).tz(TIME_ZONE).format('DD MMMM YYYY')}
           </p>
           {labelConfig && (
             <p style={{ color: labelConfig?.color }}>#{labelConfig?.name}</p>
