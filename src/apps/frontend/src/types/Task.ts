@@ -24,7 +24,7 @@ export interface Task {
   id: string;
   name: string;
   status: TaskStatus;
-  deadline: Date;
+  deadline: string;
   priority: TaskPriorities;
   labels: string;
   created_at: Date;

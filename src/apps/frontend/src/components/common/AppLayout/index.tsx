@@ -27,13 +27,13 @@ export default function AppLayout({ children }: PropsWithChildren) {
   const { onCreateTask } = useTasks();
 
   const onSubmit = async (data: InputTaskSchema) => {
-    console.log(moment(state.selectedDay, TIME_ZONE).format('YYYY-MM-DD'));
+    console.log(moment.tz(state.selectedDay, TIME_ZONE).format('YYYY-MM-DD'));
 
     setLoading(true);
     try {
       await onCreateTask({
         name: data.name,
-        deadline: moment(state.selectedDay, TIME_ZONE).format('YYYY-MM-DD'),
+        deadline: moment.tz(state.selectedDay, TIME_ZONE).format('YYYY-MM-DD'),
         priority: state.prioritySelected.name as TaskPriorities,
         label: state.labelSelected.id === '0' ? null : state.labelSelected,
       });

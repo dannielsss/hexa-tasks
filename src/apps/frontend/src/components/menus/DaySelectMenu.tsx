@@ -40,7 +40,7 @@ function DayPickerInput({ selected, setSelected }: Props) {
       >
         <BiCalendar />
         {selected
-          ? moment(selected, TIME_ZONE).format('DD/MM/YYYY')
+          ? moment.tz(selected, TIME_ZONE).format('DD/MM/YYYY')
           : 'Pick deadline'}
       </p>
       {isCloseCalendar ? null : (
@@ -52,7 +52,7 @@ function DayPickerInput({ selected, setSelected }: Props) {
       <div className="relative">
         <DayPicker
           mode="single"
-          selected={moment(selected, TIME_ZONE).toDate()}
+          selected={moment.tz(selected, TIME_ZONE).toDate()}
           onSelect={setSelected}
           onDayClick={() => setIsCloseCalendar(!isCloseCalendar)}
           timeZone={TIME_ZONE}
