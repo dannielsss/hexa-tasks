@@ -6,11 +6,11 @@ import { TIME_ZONE } from '../constants';
 const today = moment().tz(TIME_ZONE);
 
 export const isDeadlineToday = (task: Task) =>
-  moment(task.deadline).tz(TIME_ZONE).format('DD/MM/YYYY') ===
+  moment(task.deadline, TIME_ZONE).format('DD/MM/YYYY') ===
   today.format('DD/MM/YYYY');
 
 export const isDeadlineTomorrow = (task: Task) =>
-  moment(task.deadline).tz(TIME_ZONE).isAfter(today);
+  moment(task.deadline, TIME_ZONE).isAfter(today);
 
 export const filterTasksByCriteria = (
   filter: DefaultTaskFilters | string | null,

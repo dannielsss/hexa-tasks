@@ -29,7 +29,10 @@ export default function Root() {
 
   return (
     <AppLayout>
-      <p className="text-sm">Time zone: {TIME_ZONE}</p>
+      <p className="text-sm">
+        <b>Time zone: </b> {TIME_ZONE} <b>Date without time zone: </b>
+        {new Date().getDate()}
+      </p>
       <p>
         {filteredTasks.length} {filter_tasks && filter_tasks} task(s)
       </p>
