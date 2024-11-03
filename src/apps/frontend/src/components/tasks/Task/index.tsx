@@ -63,7 +63,10 @@ export default function TaskComponent({
         <div className="flex gap-2">
           <p className="text-sm flex items-center gap-1">
             <FaCalendar />{' '}
-            {moment.tz(deadline, TIME_ZONE).format('DD MMMM YYYY')}
+            {moment
+              .tz(deadline, TIME_ZONE)
+              .add(import.meta.env.PROD ? 1 : 0, 'day')
+              .format('DD MMMM YYYY')}
           </p>
           {labelConfig && (
             <p style={{ color: labelConfig?.color }}>#{labelConfig?.name}</p>
