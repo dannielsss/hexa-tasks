@@ -3,7 +3,7 @@ import { DefaultTaskFilters, Task } from '../types/Task';
 import { formatLabel } from './format-label';
 import { TIME_ZONE } from '../constants';
 
-const today = moment.tz(new Date(), TIME_ZONE);
+const today = moment().tz(TIME_ZONE);
 
 export const isDeadlineToday = (task: Task) =>
   moment.tz(task.deadline, TIME_ZONE).format('DD/MM/YYYY') ===
