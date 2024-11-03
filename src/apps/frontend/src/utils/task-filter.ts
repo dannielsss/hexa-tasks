@@ -1,14 +1,16 @@
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { DefaultTaskFilters, Task } from '../types/Task';
 import { formatLabel } from './format-label';
+import { TIME_ZONE } from '../constants';
 
-const today = moment();
+const today = moment().tz(TIME_ZONE);
 
 export const isDeadlineToday = (task: Task) =>
-  moment(task.deadline).format('DD/MM/YYYY') === today.format('DD/MM/YYYY');
+  moment(task.deadline).tz(TIME_ZONE).format('DD/MM/YYYY') ===
+  today.format('DD/MM/YYYY');
 
 export const isDeadlineTomorrow = (task: Task) =>
-  moment(task.deadline).isAfter(today);
+  moment(task.deadline).tz(TIME_ZONE).isAfter(today);
 
 export const filterTasksByCriteria = (
   filter: DefaultTaskFilters | string | null,

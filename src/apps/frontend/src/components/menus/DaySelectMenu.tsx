@@ -1,7 +1,8 @@
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { DayPicker, getDefaultClassNames } from 'react-day-picker';
 import { BiCalendar } from 'react-icons/bi';
+import { TIME_ZONE } from '../../constants';
 
 interface Props {
   selected: Date | undefined;
@@ -38,7 +39,9 @@ function DayPickerInput({ selected, setSelected }: Props) {
         className="w-full sm:w-44 h-full flex items-center justify-start sm:justify-center gap-2 border-2 bg-white text-sm rounded-md py-1.5 pl-3 pr-10 select-none mb-2"
       >
         <BiCalendar />
-        {selected ? moment(selected).format('DD/MM/YYYY') : 'Pick deadline'}
+        {selected
+          ? moment(selected).tz(TIME_ZONE).format('DD/MM/YYYY')
+          : 'Pick deadline'}
       </p>
       {isCloseCalendar ? null : (
         <>
@@ -49,9 +52,10 @@ function DayPickerInput({ selected, setSelected }: Props) {
       <div className="relative">
         <DayPicker
           mode="single"
-          selected={moment(selected).toDate()}
+          selected={moment(selected).tz(TIME_ZONE).toDate()}
           onSelect={setSelected}
           onDayClick={() => setIsCloseCalendar(!isCloseCalendar)}
+          timeZone={TIME_ZONE}
           classNames={{
             root: `${
               defaultClassNames.root
@@ -61,7 +65,9 @@ function DayPickerInput({ selected, setSelected }: Props) {
             today: `bg-[#4681ef] text-white rounded-md`,
             selected: `bg-[#e7e7e7] rounded-md`,
             chevron: `${defaultClassNames.chevron} fill-blue-500`,
+            outside: 'opacity-30',
           }}
+          showOutsideDays
         />
       </div>
     </div>

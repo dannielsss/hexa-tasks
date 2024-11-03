@@ -1,6 +1,6 @@
 import { PropsWithChildren, useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import styles from './styles.module.scss';
 
@@ -17,6 +17,7 @@ import RequestError from '../../../errors/RequestError';
 import FilterView from '../../filters/FilterView';
 import Loading from '../Loading';
 import Input from '../Input';
+import { TIME_ZONE } from '../../../constants';
 
 export default function AppLayout({ children }: PropsWithChildren) {
   const { register, reset, handleSubmit } = useForm<InputTaskSchema>();
@@ -30,7 +31,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
     try {
       await onCreateTask({
         name: data.name,
-        deadline: moment(state.selectedDay).format('YYYY-MM-DD'),
+        deadline: moment(state.selectedDay).tz(TIME_ZONE).format('YYYY-MM-DD'),
         priority: state.prioritySelected.name as TaskPriorities,
         label: state.labelSelected.id === '0' ? null : state.labelSelected,
       });
