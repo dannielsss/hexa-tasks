@@ -27,6 +27,8 @@ export default function AppLayout({ children }: PropsWithChildren) {
   const { onCreateTask } = useTasks();
 
   const onSubmit = async (data: InputTaskSchema) => {
+    console.log(moment(state.selectedDay).tz(TIME_ZONE).format('YYYY-MM-DD'));
+
     setLoading(true);
     try {
       await onCreateTask({
