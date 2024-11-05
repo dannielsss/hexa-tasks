@@ -5,11 +5,17 @@ import { TIME_ZONE } from '../constants';
 
 const today = moment().tz(TIME_ZONE);
 
-export const isDeadlineToday = (task: Task) =>
-  moment
-    .tz(task.deadline, TIME_ZONE)
-    .add(import.meta.env.PROD ? -1 : 0)
-    .format('DD/MM/YYYY') === today.format('DD/MM/YYYY');
+export const isDeadlineToday = (task: Task) => {
+  console.log(
+    moment.tz(task.deadline, TIME_ZONE).format('DD/MM/YYYY'),
+    today.format('DD/MM/YYYY')
+  );
+
+  return (
+    moment.tz(task.deadline, TIME_ZONE).format('DD/MM/YYYY') ===
+    today.format('DD/MM/YYYY')
+  );
+};
 
 export const isDeadlineTomorrow = (task: Task) =>
   moment.tz(task.deadline, TIME_ZONE).isAfter(today);

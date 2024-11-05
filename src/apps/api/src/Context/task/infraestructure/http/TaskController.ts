@@ -52,7 +52,6 @@ export default class TaskController {
   }
 
   async create(req: Request, res: Response<IWebResponse<null>>) {
-    // NOTE: The deadline require this format: YYYY-MM-DD
     const { name, deadline, priority, labelId }: BodyData = req.body;
 
     try {
@@ -119,13 +118,11 @@ export default class TaskController {
       else if (task.status === TaskStatus.Completed)
         await taskService.completeTask(task.id, TaskStatus.NotStarted);
 
-      res
-        .status(200)
-        .json({
-          message: `The task changed its status`,
-          status: true,
-          data: null,
-        });
+      res.status(200).json({
+        message: `The task changed its status`,
+        status: true,
+        data: null,
+      });
     } catch (error) {
       manageHttpError(error, res);
     }
