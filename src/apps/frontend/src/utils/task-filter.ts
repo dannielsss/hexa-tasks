@@ -6,8 +6,12 @@ import { TIME_ZONE } from '../constants';
 const today = moment().tz(TIME_ZONE);
 
 export const isDeadlineToday = (task: Task) => {
+  console.log(`Date without moment: (${task.name})`, task.deadline);
+
   console.log(
-    moment(task.deadline).format('DD/MM/YYYY'),
+    task.name,
+    moment(new Date(task.deadline)).format('DD/MM/YYYY'),
+    'Today:',
     today.format('DD/MM/YYYY')
   );
 
