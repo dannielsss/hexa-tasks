@@ -9,14 +9,15 @@ export const isDeadlineToday = (task: Task) => {
   console.log(`Date without moment: (${task.name})`, task.deadline);
 
   console.log(
-    task.name,
-    moment(new Date(task.deadline)).format('DD/MM/YYYY'),
+    `Date with moment: (${task.name})`,
+    moment(task.deadline).add(1, 'day').format('DD/MM/YYYY'),
     'Today:',
     today.format('DD/MM/YYYY')
   );
 
   return (
-    moment(task.deadline).format('DD/MM/YYYY') === today.format('DD/MM/YYYY')
+    moment(task.deadline).add(1, 'day').format('DD/MM/YYYY') ===
+    today.format('DD/MM/YYYY')
   );
 };
 
