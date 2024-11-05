@@ -22,8 +22,7 @@ export const isDeadlineToday = (task: Task) => {
 };
 
 export const isDeadlineTomorrow = (task: Task) =>
-  moment(task.deadline).add(1, 'day').format('DD/MM/YYYY') ===
-  today.add(1, 'day').format('DD/MM/YYYY');
+  moment(task.deadline).isAfter(today);
 
 export const filterTasksByCriteria = (
   filter: DefaultTaskFilters | string | null,
