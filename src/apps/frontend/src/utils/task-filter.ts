@@ -3,26 +3,25 @@ import { DefaultTaskFilters, Task } from '../types/Task';
 import { formatLabel } from './format-label';
 import { TIME_ZONE } from '../constants';
 
-const today = moment().tz(TIME_ZONE);
+const today = moment()
+  .tz(TIME_ZONE)
+  .set('hours', 0)
+  .set('minutes', 0)
+  .set('seconds', 0)
+  .set('milliseconds', 0);
+
+const tomorrow = today.clone().add(1, 'day');
 
 export const isDeadlineToday = (task: Task) => {
-  console.log(`Date without moment: (${task.name})`, task.deadline);
+  console.log(`Today is:`, today.toISOString());
+  console.log(`Deadline of '${task.name}':`, task.deadline);
 
-  console.log(
-    `Date with moment: (${task.name})`,
-    moment(task.deadline).add(1, 'day').format('DD/MM/YYYY'),
-    'Today:',
-    today.format('DD/MM/YYYY')
-  );
-
-  return (
-    moment(task.deadline).add(1, 'day').format('DD/MM/YYYY') ===
-    today.format('DD/MM/YYYY')
-  );
+  return task.deadline === today.toISOString();
 };
 
-export const isDeadlineTomorrow = (task: Task) =>
-  moment(task.deadline).isAfter(today);
+export const isDeadlineTomorrow = (task: Task) => {
+  return moment(task.deadline).isSame(tomorrow);
+};
 
 export const filterTasksByCriteria = (
   filter: DefaultTaskFilters | string | null,
