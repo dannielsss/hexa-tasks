@@ -3,12 +3,7 @@ import { DefaultTaskFilters, Task } from '../types/Task';
 import { formatLabel } from './format-label';
 import { TIME_ZONE } from '../constants';
 
-const today = moment()
-  .tz(TIME_ZONE)
-  .set('hours', 0)
-  .set('minutes', 0)
-  .set('seconds', 0)
-  .set('milliseconds', 0);
+const today = moment().tz(TIME_ZONE).startOf('day');
 
 const tomorrow = today.clone().add(1, 'day');
 
