@@ -9,8 +9,6 @@ import AppContext from '../contexts/AppProvider/AppContext';
 import AppLayout from '../components/common/AppLayout';
 import TaskList from '../components/tasks/TaskList';
 
-import moment from 'moment-timezone';
-
 interface LoaderData {
   filter_tasks: DefaultTaskFilters | string | null;
 }
