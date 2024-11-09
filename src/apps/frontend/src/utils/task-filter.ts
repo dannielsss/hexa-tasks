@@ -12,17 +12,15 @@ export const isDeadlineToday = (task: Task) => {
   console.log(`Deadline of '${task.name}':`, task.deadline);
 
   return (
-    moment(task.deadline)
-      .add(import.meta.env.PROD ? 1 : 0, 'day')
-      .format('YYYY-MM-DD') === today.format('YYYY-MM-DD')
+    moment(task.deadline).add(12, 'hour').format('YYYY-MM-DD') ===
+    today.format('YYYY-MM-DD')
   );
 };
 
 export const isDeadlineTomorrow = (task: Task) => {
   return (
-    moment(task.deadline)
-      .add(import.meta.env.PROD ? 1 : 0, 'day')
-      .format('YYYY-MM-DD') === tomorrow.format('YYYY-MM-DD')
+    moment(task.deadline).add(12, 'hour').format('YYYY-MM-DD') ===
+    tomorrow.format('YYYY-MM-DD')
   );
 };
 

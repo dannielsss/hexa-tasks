@@ -2,12 +2,14 @@ import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import { useContext } from 'react';
 
 import { DefaultTaskFilters } from '../types/Task';
+import { TIME_ZONE } from '../constants';
 
 import { filterTasksByCriteria } from '../utils/task-filter';
 import AppContext from '../contexts/AppProvider/AppContext';
 import AppLayout from '../components/common/AppLayout';
 import TaskList from '../components/tasks/TaskList';
-import { TIME_ZONE } from '../constants';
+
+import moment from 'moment-timezone';
 
 interface LoaderData {
   filter_tasks: DefaultTaskFilters | string | null;
@@ -30,8 +32,7 @@ export default function Root() {
   return (
     <AppLayout>
       <p className="text-sm">
-        <b>Time zone: </b> {TIME_ZONE} <b>Date without time zone: </b>
-        {new Date().getDate()}
+        <b>Time zone: </b> {TIME_ZONE}
       </p>
       <p>
         {filteredTasks.length} {filter_tasks && filter_tasks} task(s)
