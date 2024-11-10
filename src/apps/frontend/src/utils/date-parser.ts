@@ -8,5 +8,5 @@ import { TIME_ZONE } from '../constants';
  * @returns A moment-timezone object representing the adjusted date and time.
  */
 export const toMoment = (date: Date | string, hoursOffset?: number): Moment => {
-  return moment(date).tz(TIME_ZONE).add(hoursOffset);
+  return moment(date).tz(TIME_ZONE).add(hoursOffset, 'hour');
 };
