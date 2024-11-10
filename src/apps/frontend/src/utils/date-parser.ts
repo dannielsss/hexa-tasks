@@ -2,6 +2,7 @@ import moment, { Moment } from 'moment-timezone';
 import { TIME_ZONE } from '../constants';
 
 /**
+ * Parses a date into a moment-timezone object and optionally adds extra hours.
  *
  * @param date The date that needs to be parsed
  * @param hoursOffset Additional hours to add to the date
