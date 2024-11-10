@@ -1,27 +1,14 @@
-import moment from 'moment-timezone';
 import { DefaultTaskFilters, Task } from '../types/Task';
 import { formatLabel } from './format-label';
-import { TIME_ZONE } from '../constants';
-
-const today = moment().tz(TIME_ZONE);
-
-const tomorrow = today.clone().add(1, 'day');
+import { DATE_FORMATS, TODAY, TOMORROW } from '../constants';
+import { toMoment } from './date-parser';
 
 export const isDeadlineToday = (task: Task) => {
-  console.log(`Today is:`, today.toISOString());
-  console.log(`Deadline of '${task.name}':`, task.deadline);
-
-  return (
-    moment(task.deadline).add(12, 'hour').format('YYYY-MM-DD') ===
-    today.format('YYYY-MM-DD')
-  );
+  return toMoment(task.deadline, 12).format(DATE_FORMATS.ISO) === TODAY;
 };
 
 export const isDeadlineTomorrow = (task: Task) => {
-  return (
-    moment(task.deadline).add(12, 'hour').format('YYYY-MM-DD') ===
-    tomorrow.format('YYYY-MM-DD')
-  );
+  return toMoment(task.deadline, 12).format(DATE_FORMATS.ISO) === TOMORROW;
 };
 
 export const filterTasksByCriteria = (
