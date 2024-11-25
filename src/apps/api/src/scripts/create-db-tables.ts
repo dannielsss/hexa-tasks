@@ -1,18 +1,20 @@
 import fs from 'fs';
 import path from 'path';
 
+import { DATABASE_TABLES_LIST } from '../constants/database-tables-list';
 import { database } from '../database/postgres';
 
 export async function createDbTables() {
-  const tableNames = ['label', 'task', 'task_label', 'status', 'priority'];
   const searchTablesQuery = `
   SELECT tablename
     FROM pg_tables
-    WHERE tablename IN (${tableNames.map((name) => `'${name}'`).join(',')});
+    WHERE tablename IN (${DATABASE_TABLES_LIST.map((name) => `'${name}'`).join(
+      ','
+    )});
   `;
 
   const result = await database.query(searchTablesQuery);
-  if (result.rows.length === tableNames.length) return;
+  if (result.rows.length === DATABASE_TABLES_LIST.length) return;
 
   try {
     const tablesSQLFile = fs.readFileSync(
@@ -21,9 +23,10 @@ export async function createDbTables() {
     );
     await database.query(tablesSQLFile);
 
-    console.log('Script "create-db-tables.ts" excuted successfully');
+    console.log('The following tables have been successfully created');
+    console.log(DATABASE_TABLES_LIST);
   } catch (error) {
     console.log(error);
-    throw new Error('Script "create-db-tables.ts" has an error: ');
+    throw new Error('Script "create-db-tables.ts" has an error.');
   }
 }
